@@ -5,6 +5,7 @@
 
 using namespace std;
 
+/*
 int main() {
     cout << "----------------------------------------------" << endl;
     cout << "LinkedList Sample" << endl;
@@ -34,4 +35,4 @@ int main() {
     delete list;
 
     return EXIT_SUCCESS;
-}
+}*/

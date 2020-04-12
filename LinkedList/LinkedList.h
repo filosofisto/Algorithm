@@ -27,6 +27,8 @@ public:
 
     size_t getSize() const;
 
+    bool empty() const;
+
     void print(ostream& os);
 private:
     void remove(Node<T>* node);
@@ -58,28 +60,6 @@ LinkedList<T>::~LinkedList()
         delete nodeBefore;
     }
 }
-
-/*template <typename T>
-Node<K, T>* LinkedList<T>::search(const K& key) const {
-    auto node = head;
-
-    while (node != nullptr && node->key() != key) {
-        node = node->next();
-    }
-
-    return node;
-}*/
-
-/*template <typename T>
-LinkedList& LinkedList<T>::add(const T &datas, ...)
-{
-    va_list args;
-    va_start(args, datas);
-    T data;
-    while ((data = va_arg(args, T)) != nullptr) {
-        insertOne(data);
-    }
-}*/
 
 template <typename T>
 LinkedList<T>* LinkedList<T>::add(const T& data)
@@ -186,6 +166,11 @@ bool LinkedList<T>::contains(const T &data) const {
     }
 
     return false;
+}
+
+template<typename T>
+bool LinkedList<T>::empty() const {
+    return getSize() == 0;
 }
 
 
