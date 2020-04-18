@@ -25,6 +25,8 @@ public:
 
     bool contains(const T& data) const;
 
+    T search(const T& data) const;
+
     size_t getSize() const;
 
     bool empty() const;
@@ -32,6 +34,7 @@ public:
     void print(ostream& os);
 private:
     void remove(Node<T>* node);
+    Node<T>* searchNode(const T& data) const;
 
     Node<T>* head;
     size_t size;
@@ -82,15 +85,10 @@ LinkedList<T>* LinkedList<T>::add(const T& data)
 
 template<typename T>
 bool LinkedList<T>::remove(const T &data) {
-    auto node = head;
-
-    while (node != nullptr) {
-        if (node->data() == data) {
-            remove(node);
-            return true;
-        }
-
-        node = node->next();
+    auto foundedNode = searchNode(data);
+    if (foundedNode != nullptr) {
+        remove(foundedNode);
+        return true;
     }
 
     return false;
@@ -155,22 +153,40 @@ size_t LinkedList<T>::getSize() const {
 
 template<typename T>
 bool LinkedList<T>::contains(const T &data) const {
-    auto node = head;
-
-    while (node != nullptr) {
-        if (node->data() == data) {
-            return true;
-        }
-
-        node = node->next();
-    }
-
-    return false;
+    return searchNode(data) != nullptr;
 }
 
 template<typename T>
 bool LinkedList<T>::empty() const {
     return getSize() == 0;
+}
+
+template<typename T>
+T LinkedList<T>::search(const T &data) const
+{
+    auto node = head;
+
+    while (node != nullptr && node->data() != data) {
+        node = node->next();
+    }
+
+    return node->data();
+}
+
+template<typename T>
+Node<T>* LinkedList<T>::searchNode(const T& data) const
+{
+    auto node = head;
+
+    while (node != nullptr) {
+        if (node->data() == data) {
+            return node;
+        }
+
+        node = node->next();
+    }
+
+    return nullptr;
 }
 
 
