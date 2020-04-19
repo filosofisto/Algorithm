@@ -13,8 +13,8 @@ public:
     Queue();
     ~Queue();
 
-    Queue<T>* enqueue(const T& data);
-    T dequeue();
+    Queue<T>* enqueue(T* data);
+    T* dequeue();
     bool empty() const;
     size_t getSize() const;
 private:
@@ -36,7 +36,7 @@ Queue<T>::~Queue() {
 }
 
 template<typename T>
-Queue<T> *Queue<T>::enqueue(const T &data) {
+Queue<T> *Queue<T>::enqueue(T* data) {
     auto node = new Node(data);
     node->next(tail);
     node->before(nullptr);
@@ -57,7 +57,7 @@ Queue<T> *Queue<T>::enqueue(const T &data) {
 }
 
 template<typename T>
-T Queue<T>::dequeue() {
+T* Queue<T>::dequeue() {
     if (head != nullptr) {
         auto node = head;
         head = head->before();
@@ -73,7 +73,7 @@ T Queue<T>::dequeue() {
 
 template<typename T>
 bool Queue<T>::empty() const {
-    return head != nullptr;
+    return head == nullptr;
 }
 
 template<typename T>

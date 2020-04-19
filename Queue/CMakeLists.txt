@@ -41,6 +41,6 @@ endif()
 # Now simply link against gtest or gtest_main as needed. Eg
 #add_executable(example example.cpp)
 #add_executable(LinkedList main.cpp LinkedList.cpp LinkedList.h Node.cpp Node.h LinkedListTest.cpp)
-add_executable(Queue main.cpp Node.cpp Node.h Queue.cpp Queue.h QueueTest.cpp)
+add_executable(Queue Node.cpp Node.h Queue.cpp Queue.h QueueTest.cpp)
 target_link_libraries(Queue gtest_main)
 add_test(NAME LinkedList_test COMMAND LinkedList)
