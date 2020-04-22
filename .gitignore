@@ -1,7 +1,7 @@
 cmake-build-debug/
-LinkedList/.idea/
-Queue/.idea/
-Stack/.idea/
+BasicStructures/LinkedList/.idea/
+BasicStructures/Queue/.idea/
+BasicStructures/Stack/.idea/
 
 
 
