@@ -14,7 +14,7 @@ TEST(LINKEDLIST, Empty)
 {
     auto list = new LinkedList<int>();
     EXPECT_TRUE(list->empty());
-    list->add(1);
+    list->add(new int(1));
     EXPECT_FALSE(list->empty());
 }
 
@@ -22,23 +22,27 @@ TEST(LINKEDLIST, Add)
 {
     auto list = new LinkedList<int>();
 
-    list->add(1);
+    int* one = new int(1);
+    int* two = new int(2);
+
+    list->add(one);
     EXPECT_FALSE(list->empty());
-    EXPECT_TRUE(list->contains(1));
-    EXPECT_FALSE(list->contains(2));
+    EXPECT_TRUE(list->contains(one));
+    EXPECT_FALSE(list->contains(two));
 }
 
 TEST(LINKEDLIST, Remove)
 {
     auto list = new LinkedList<int>();
 
-    list->add(1);
+    int* one = new int(1);
+    list->add(one);
     EXPECT_EQ(1, list->getSize());
 
-    list->remove(2);
+    list->remove(new int(2));
     EXPECT_EQ(1, list->getSize());
 
-    list->remove(1);
+    list->remove(one);
     EXPECT_EQ(0, list->getSize());
 }
 
@@ -46,22 +50,20 @@ TEST(LINKEDLIST, Contains)
 {
     auto list = new LinkedList<int>();
 
-    list->add(1);
+    int* one = new int(1);
+    list->add(one);
 
-    EXPECT_TRUE(list->contains(1));
-    EXPECT_FALSE(list->contains(2));
+    EXPECT_TRUE(list->contains(one));
+    EXPECT_FALSE(list->contains(new int(2)));
 }
 
 TEST(LINKEDLIST, Search)
 {
     auto list = new LinkedList<int>();
 
-    list->add(1);
+    int* one = new int(1);
+    list->add(one);
 
-    EXPECT_EQ(list->search(1), 1);
-
-    auto listString = new LinkedList<string>();
-    listString->add("Eduardo")->add("Djovana")->add("Hiago")->add("Hanna");
-    EXPECT_EQ(listString->search("Hiago"), "Hiago");
+    EXPECT_EQ(list->search(one), 1);
 }
 

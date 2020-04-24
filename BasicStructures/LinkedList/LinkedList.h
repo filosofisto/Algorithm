@@ -19,13 +19,13 @@ public:
     LinkedList();
     ~LinkedList();
 
-    LinkedList<T>* add(const T& data);
+    LinkedList<T>* add(T* data);
 
-    bool remove(const T& data);
+    bool remove(T* data);
 
-    bool contains(const T& data) const;
+    bool contains(T* data) const;
 
-    T search(const T& data) const;
+    T search(T* data) const;
 
     size_t getSize() const;
 
@@ -34,14 +34,14 @@ public:
     void print(ostream& os);
 private:
     void remove(Node<T>* node);
-    Node<T>* searchNode(const T& data) const;
+    Node<T>* searchNode(T* data) const;
 
     Node<T>* head;
     size_t size;
 };
 
 template <typename T>
-LinkedList<T>::LinkedList(): size(0)
+LinkedList<T>::LinkedList(): size(0), head(nullptr)
 {
 
 }
@@ -65,7 +65,7 @@ LinkedList<T>::~LinkedList()
 }
 
 template <typename T>
-LinkedList<T>* LinkedList<T>::add(const T& data)
+LinkedList<T>* LinkedList<T>::add(T* data)
 {
     auto node = new Node<T>(data);
     node->next(head);
@@ -84,7 +84,7 @@ LinkedList<T>* LinkedList<T>::add(const T& data)
 
 
 template<typename T>
-bool LinkedList<T>::remove(const T &data) {
+bool LinkedList<T>::remove(T* data) {
     auto foundedNode = searchNode(data);
     if (foundedNode != nullptr) {
         remove(foundedNode);
@@ -152,7 +152,7 @@ size_t LinkedList<T>::getSize() const {
 }
 
 template<typename T>
-bool LinkedList<T>::contains(const T &data) const {
+bool LinkedList<T>::contains(T* data) const {
     return searchNode(data) != nullptr;
 }
 
@@ -162,7 +162,7 @@ bool LinkedList<T>::empty() const {
 }
 
 template<typename T>
-T LinkedList<T>::search(const T &data) const
+T LinkedList<T>::search(T* data) const
 {
     auto node = head;
 
@@ -170,11 +170,11 @@ T LinkedList<T>::search(const T &data) const
         node = node->next();
     }
 
-    return node->data();
+    return *node->data();
 }
 
 template<typename T>
-Node<T>* LinkedList<T>::searchNode(const T& data) const
+Node<T>* LinkedList<T>::searchNode(T* data) const
 {
     auto node = head;
 
@@ -188,6 +188,5 @@ Node<T>* LinkedList<T>::searchNode(const T& data) const
 
     return nullptr;
 }
-
 
 #endif //LINKEDLIST_LinkedList_H

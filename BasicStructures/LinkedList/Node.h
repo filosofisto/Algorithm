@@ -13,10 +13,10 @@ using namespace std;
 template <typename T>
 class Node {
 public:
-    explicit Node(const T&data);
+    explicit Node(T* data);
     ~Node();
 
-    T data() const;
+    T* data() const;
 
     Node<T>* before() const;
     void before(Node<T>* _before);
@@ -25,13 +25,13 @@ public:
     void next(Node<T>* _next);
 
 private:
-    T _data;
+    T* _data;
     Node<T>* _before;
     Node<T>* _next;
 };
 
 template <typename T>
-Node<T>::Node(const T& data): _data(data)
+Node<T>::Node(T* data): _data(data)
 {
 
 }
@@ -40,7 +40,7 @@ template <typename T>
 Node<T>::~Node() = default;
 
 template <typename T>
-T Node<T>::data() const
+T* Node<T>::data() const
 {
     return _data;
 }
@@ -68,6 +68,5 @@ void Node<T>::next(Node<T>* _next)
 {
     this->_next = _next;
 }
-
 
 #endif //LINKEDLIST_NODE_H
