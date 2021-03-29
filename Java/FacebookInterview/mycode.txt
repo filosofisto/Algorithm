@@ -1,0 +1,74 @@
+
+Given a binary tree structure, compute the minimum value on each level.
+
+
+
+            5                 [5, 1]
+          /   \
+         2     1
+
+  class Tree {
+
+
+    class Node {
+      Node  right;
+      Node left;
+      int val;
+    }
+
+    // [5, 1]
+    //private int level = 0;
+    private int min = Integer.MAX_VALUE;
+    private Map<Integer, Integer> map = new HashMap<>();
+
+    void min(Node node, int level) {
+        if (node == null) return;
+
+        Integer minValue = map.get(level);
+
+        if (minValue == null || node.val < minValue) {
+          map.put(level, node.val);
+        }
+
+        min(node.left, level+1);
+        min(node.right, level+1);
+    }
+
+    List<Integer> minimumByLevel(Node root) {
+      List<Integer> ret = new ArrayList<>();
+
+      min(root, 1);
+
+      map.keySet().sort().forEach(item -> ret.add(map.get(item)));
+
+      return ret;
+    }
+
+
+  }
+
+-------------------------------------------------------------------
+
+
+
+Given a string and a dictionary of valid words, determine if you could insert zero or more spaces into the string such that the resulting string would be composed entirely of valid words.
+
+Example: bedbathandbeyond => breakable since ["bed", "bath", "and", "beyond"]
+
+  bed batch and beyond
+
+  Example: bedbathandbeyondabc => breakable since ["bed", "bath", "and", "beyond"]
+
+    abcc ->  ["a","ab","abc" "c"]
+
+    "abc" "c"
+
+  boolean parse(String s, String[] dict) {
+    int pos = s.indexOf(dict[0]);
+      if (pos != -1) {
+        String x = s.substring(0, pos) + s.substring(pos+1);
+        return parse(x, Arrays.copyOfRange(dict, 1, dict.length, String.class);
+      }
+  }
+
+
