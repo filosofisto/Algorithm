@@ -3,4 +3,4 @@ project(BreathFirst)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(BreathFirst main.cpp GraphNode.cpp GraphNode.h Graph.cpp Graph.h BreadthFirst.cpp BreadthFirst.h NodeToParentMap.cpp NodeToParentMap.h)
+add_executable(BreathFirst main.cpp GraphNode.cpp GraphNode.h Graph.cpp Graph.h)

@@ -14,10 +14,12 @@ public:
     GraphNode();
     ~GraphNode();
 
-    void addGraphNode(const GraphNode& graphNode);
+    void addGraphNode(GraphNode* graphNode);
+
+    vector<GraphNode*> adjacentList() const;
 
 private:
-    vector<GraphNode*> adjacent;
+    vector<GraphNode*> adjacent_list;
 };
 
 
