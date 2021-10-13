@@ -9,14 +9,21 @@ Graph::Graph()
 
 }
 
+Graph::Graph(const Graph &graph)
+{
+    nodes = graph.nodes; // copy vector
+}
+
 Graph::~Graph()
 {
     nodes.clear();
 }
 
-void Graph::addGraphNode(GraphNode* graphNode)
+void Graph::addGraphNodes(initializer_list<GraphNode*> graphNodes)
 {
-    nodes.push_back(graphNode);
+    for (auto graphNode: graphNodes) {
+        nodes.push_back(graphNode);
+    }
 }
 
 bool Graph::breadthFirstSearch(const GraphNode *start, const GraphNode *goal, NodeToParentMap &outMap) const
@@ -35,7 +42,7 @@ bool Graph::breadthFirstSearch(const GraphNode *start, const GraphNode *goal, No
             break;
         }
 
-        for (const GraphNode* node: current->adjacentList()) {
+        for (const GraphNode* node: current->getAdjacentList()) {
             const GraphNode* parent = outMap[node];
             if (parent == nullptr && node != start) {
                 outMap[node] = current;

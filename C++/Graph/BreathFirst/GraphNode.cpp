@@ -9,17 +9,24 @@ GraphNode::GraphNode()
 
 }
 
+GraphNode::GraphNode(const GraphNode &graphNode)
+{
+    adjacent_list = graphNode.adjacent_list; // copy vector
+}
+
 GraphNode::~GraphNode()
 {
     adjacent_list.clear();
 }
 
-void GraphNode::addGraphNode(GraphNode *graphNode)
+void GraphNode::addGraphNodes(initializer_list<GraphNode*> graphNodes)
 {
-    adjacent_list.push_back(graphNode);
+    for (auto graphNode: graphNodes) {
+        adjacent_list.push_back(graphNode);
+    }
 }
 
-vector<GraphNode *> GraphNode::adjacentList() const
+vector<GraphNode *> GraphNode::getAdjacentList() const
 {
     return adjacent_list;
 }

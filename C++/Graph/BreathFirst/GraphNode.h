@@ -6,17 +6,19 @@
 #define BREATHFIRST_GRAPHNODE_H
 
 #include <vector>
+#include <initializer_list>
 
 using namespace std;
 
 class GraphNode {
 public:
     GraphNode();
+    GraphNode(const GraphNode& graphNode);
     ~GraphNode();
 
-    void addGraphNode(GraphNode* graphNode);
+    void addGraphNodes(initializer_list<GraphNode *> graphNodes);
 
-    vector<GraphNode*> adjacentList() const;
+    vector<GraphNode*> getAdjacentList() const;
 
 private:
     vector<GraphNode*> adjacent_list;
