@@ -4,13 +4,18 @@
 
 #include "Vertex.h"
 
-Vertex::Vertex(): color(Color::white), distance(INT_MAX), parent(nullptr)
+Vertex::Vertex(const string& label):
+    label(label),
+    color(Color::white),
+    distance(INT_MAX),
+    parent(nullptr)
 {
 
 }
 
 Vertex::Vertex(const Vertex &vertex)
 {
+    label = vertex.label;
     adjacent_list = vertex.adjacent_list; // copy vector
     color = vertex.color;
     parent = vertex.parent;

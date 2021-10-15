@@ -40,7 +40,7 @@ endif()
 
 
 # Now simply link against gtest or gtest_main as needed. Eg
-add_executable(BasicGraph Graph.cpp Graph.h Vertex.cpp Vertex.h GraphTest.cpp)
+add_executable(BasicGraph Graph.cpp Graph.h Vertex.cpp Vertex.h GraphTest.cpp main.cpp)
 target_link_libraries(BasicGraph gtest_main)
 add_test(NAME BasicGraph_test COMMAND BasicGraph)
 

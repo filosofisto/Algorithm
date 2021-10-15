@@ -70,3 +70,15 @@ void Graph::resetForBreadthFirstSearch()
     }
 }
 
+void Graph::printPath(ostream& out, Vertex *v1, Vertex *v2)
+{
+    if (v1 == v2) {
+        out << v1->label << endl;
+    } else if (v2->parent == nullptr) {
+        out << string("no path exists") << endl;
+    } else {
+        printPath(out, v1, v2->parent);
+        out << v2->label << endl;
+    }
+}
+

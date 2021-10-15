@@ -1,8 +1,11 @@
 //
 // Created by eduardo on 22.04.20.
 //
+#include <iostream>
 #include "gtest/gtest.h"
 #include "Graph.h"
+
+using namespace std;
 
 TEST(GRAPH, Found)
 {
@@ -11,11 +14,11 @@ TEST(GRAPH, Found)
     //    \                 /
     //     c ---------------
 
-    Vertex* start = new Vertex();
-    Vertex* b = new Vertex();
-    Vertex* c = new Vertex();
-    Vertex* d = new Vertex();
-    Vertex* goal = new Vertex();
+    Vertex* start = new Vertex("start");
+    Vertex* b = new Vertex("b");
+    Vertex* c = new Vertex("c");
+    Vertex* d = new Vertex("d");
+    Vertex* goal = new Vertex("goal");
 
     start->add({b, c});
     b->add({d});
@@ -44,11 +47,11 @@ TEST(GRAPH, Distance)
     //    \                 /
     //     c ---------------
 
-    Vertex* start = new Vertex();
-    Vertex* b = new Vertex();
-    Vertex* c = new Vertex();
-    Vertex* d = new Vertex();
-    Vertex* goal = new Vertex();
+    Vertex* start = new Vertex("start");
+    Vertex* b = new Vertex("b");
+    Vertex* c = new Vertex("c");
+    Vertex* d = new Vertex("d");
+    Vertex* goal = new Vertex("goal");
 
     start->add({b, c});
     b->add({d});
@@ -70,10 +73,10 @@ TEST(GRAPH, Distance)
 TEST(GRAPH, NotFound)
 {
     // start --- b  x  c --- goal
-    Vertex* start = new Vertex();
-    Vertex* b = new Vertex();
-    Vertex* c = new Vertex();
-    Vertex* goal = new Vertex();
+    Vertex* start = new Vertex("start");
+    Vertex* b = new Vertex("b");
+    Vertex* c = new Vertex("c");
+    Vertex* goal = new Vertex("goal");
 
     start->add({b});
 
@@ -94,4 +97,32 @@ TEST(GRAPH, NotFound)
     delete goal;
 
     EXPECT_FALSE(reachable);
+}
+
+TEST(GRAPH, printPath)
+{
+    // start --- b --- d --- goal
+    //   \                   /
+    //    \                 /
+    //     c ---------------
+
+    Vertex* start = new Vertex("start");
+    Vertex* b = new Vertex("b");
+    Vertex* c = new Vertex("c");
+    Vertex* d = new Vertex("d");
+    Vertex* goal = new Vertex("goal");
+
+    start->add({b, c});
+    b->add({d});
+    c->add({goal});
+    d->add({goal});
+
+    Graph* graph = new Graph();
+
+    graph->add({start, b, c, d, goal});
+
+    graph->breadthFirstSearch(start);
+
+
+    graph->printPath(cout, start, goal);
 }

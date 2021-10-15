@@ -10,8 +10,11 @@
 #include <queue>
 #include <unordered_map>
 #include <initializer_list>
+#include <iostream>
 
 #include "Vertex.h"
+
+using namespace std;
 
 class Graph {
 public:
@@ -24,6 +27,9 @@ public:
     void breadthFirstSearch(Vertex* start);
 
     bool reachableFrom(Vertex* start, Vertex* goal);
+
+    void printPath(ostream& out, Vertex* v1, Vertex* v2);
+
 private:
     void resetForBreadthFirstSearch();
     vector<Vertex*> vertexes;
