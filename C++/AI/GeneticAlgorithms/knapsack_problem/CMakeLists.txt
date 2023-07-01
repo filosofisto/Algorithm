@@ -24,7 +24,7 @@ if(PROJECT_SOURCE_DIR STREQUAL PROJECT_BINARY_DIR)
 endif()
 
 # Executable
-add_executable(knapsack_problem main.cpp knapsack.h chromosome.h random_utility.h random_utility.cpp)
+add_executable(knapsack_problem main.cpp knapsack.h chromosome.h item.h)
 
 
 

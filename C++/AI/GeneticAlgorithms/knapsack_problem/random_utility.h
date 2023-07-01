@@ -4,5 +4,6 @@
 #include <random>
 
 int zeroOrOne();
+int between(int start, int end);
 
 #endif
