@@ -44,6 +44,21 @@ public:
         return total_value;
     }
     
+    void mutate()
+    {
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<int> dist(0, N);
+        
+        int bit_pos = dist(gen);
+        data[bit_pos] = !data[bit_pos];
+    }
+    
+    void flip_mutate()
+    {
+        data.flip();
+    }
+    
     friend std::ostream& operator<<(std::ostream& out, const Chromosome<N>& obj)
     {
         out << obj.data;

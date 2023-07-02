@@ -8,6 +8,7 @@
 #include <string>
 #include <random>
 #include <algorithm>
+#include <utility>
 #include "chromosome.h"
 #include "item.h"
 
@@ -112,6 +113,32 @@ public:
         for (const auto& chromosome: selected_individuals) {
             population.push_back(chromosome);
         }
+    }
+    
+    std::pair<Chromosome<N>, Chromosome<N>> one_point_crossover(
+        const Chromosome<N>& parent_a, 
+        const Chromosome<N>& parent_b, 
+        size_t xover_point) const
+    {
+        Chromosome<N> child_one;
+        Chromosome<N> child_two;
+        
+        // child_one
+        for (int i = 0; i < xover_point; ++i) {
+            child_one[i] = parent_a[i];
+        }
+        for (int i = xover_point; i < parent_b.size(); ++i) {
+            child_one[i] = parent_b[i];
+        }
+        // child_two
+        for (int i = 0; i < xover_point; ++i) {
+            child_two[i] = parent_b[i];
+        }
+        for (int i = xover_point; i < parent_b.size(); ++i) {
+            child_two[i] = parent_a[i];
+        }
+        
+        return std::make_pair(child_one, child_two);
     }
     
 private:
