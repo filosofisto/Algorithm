@@ -1,17 +1,25 @@
 #include <iostream>
 #include <bitset>
+#include <iomanip>
+//#include <locale>
 #include "knapsack.h"
 
 using std::cout;
 using std::endl;
+using std::fixed;
+using std::setprecision;
+//using std::locale;
 
 
 int main() {
+    cout << fixed << setprecision(2);
+    //cout.imbue(locale("en_US.UTF-8"));
+    
     cout << "---------------------------------------------------------\n";
     cout << "Knapsack Problem\n";
     cout << "---------------------------------------------------------\n";
     
-    KnapsackGA<26> knapsackGA{ 20, 6404180 };
+    KnapsackGA<26> knapsackGA{ 20, 6404180, 10 };
     knapsackGA.addItem("Axe",               32252,  68674);
     knapsackGA.addItem("Bronze coin",       225790, 47101);
     knapsackGA.addItem("Crown",             468164, 94462);
@@ -40,14 +48,11 @@ int main() {
     knapsackGA.addItem("Zinc cup",          978724, 2100851);
     
     cout << "Initial Population\n";
-    knapsackGA.show_population(cout);
-
-    knapsackGA.roulette_wheel_selection(10);
-    knapsackGA.set_probabilities_of_population();
-    cout << "Population After Selection 1\n";
-    knapsackGA.show_probabilities_of_population(cout);
     
-    //knapsackGA.set_probabilities_of_population();
+    knapsackGA.run(100000);
+    cout << "Solution\n";
+    knapsackGA.show_best_individual(cout);
+    cout << endl;
 
     return EXIT_SUCCESS;
 }

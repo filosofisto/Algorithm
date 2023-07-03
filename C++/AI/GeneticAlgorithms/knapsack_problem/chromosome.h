@@ -4,6 +4,7 @@
 #include <iostream>
 #include <bitset>
 #include <type_traits>
+#include <string>
 #include "item.h"
 
 template <size_t N>
@@ -26,7 +27,7 @@ public:
         }
     }
     
-    float calculate_fitness(const TItems& items, int capacity) const
+    float calculate_fitness(const TItems& items, int capacity)
     {
         int total_weight{ 0 };
         float total_value{ 0 };
@@ -41,22 +42,48 @@ public:
             }
         }
         
+        fitness = total_value;
         return total_value;
     }
     
-    void mutate()
+    void mutate(int index)
     {
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        std::uniform_int_distribution<int> dist(0, N);
-        
-        int bit_pos = dist(gen);
-        data[bit_pos] = !data[bit_pos];
+        data[index] = !data[index];
     }
     
     void flip_mutate()
     {
         data.flip();
+    }
+    
+    float get_fitness() const
+    {
+        return fitness;
+    }
+    
+    bool get(size_t index) const
+    {
+        return data[index];
+    }
+    
+    void set(size_t index)
+    {
+        data.set(index);
+    }
+    
+    void set(size_t index, bool value)
+    {
+        data.set(index, value);
+    }
+    
+    void reset(size_t index)
+    {
+        data.reset(index);
+    }
+    
+    std::string to_string() const
+    {
+        return data.to_string();
     }
     
     friend std::ostream& operator<<(std::ostream& out, const Chromosome<N>& obj)
@@ -68,6 +95,7 @@ public:
     
 private:
     std::bitset<N> data;
+    float fitness;
 };
 
 #endif
