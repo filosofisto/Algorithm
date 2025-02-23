@@ -9,7 +9,7 @@ TEST(INSERT_SORTING, Default)
 {
 	using std::array;
 
-	array<int, 9> a{9,8,7,6,5,3,2,1};
+	array<int, 9> a{9,8,7,6,5,4,3,2,1};
 	auto b = a;
 
 	EXPECT_EQ(a, b);
