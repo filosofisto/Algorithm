@@ -82,7 +82,7 @@ int main()
 	measure_time("Size 100 Quick Sort    ", not_so_small_copy, [](auto& arr) { quick_sort(arr); });
 
 	cout << endl;
-
+	
 	array<int, 1000> thousand;
 	fill(thousand);
 
@@ -98,6 +98,22 @@ int main()
 	thousand_copy = thousand;
 	measure_time("Size 1000 Quick Sort    ", thousand_copy, [](auto& arr) { quick_sort(arr); });
 
+	cout << endl;
+
+	array<int, 10000> tenthousand;
+	fill(tenthousand);
+
+	auto tenthousand_copy = tenthousand;
+	measure_time("Size 1M Insertion Sort", tenthousand_copy, [](auto& arr) { insertion_sort(arr); });
+
+	tenthousand_copy = tenthousand;
+	measure_time("Size 1M Merge Sort    ", tenthousand_copy, [](auto& arr) { merge_sort(arr); });
+
+	tenthousand_copy = tenthousand;
+	measure_time("Size 1M Heap Sort     ", tenthousand_copy, [](auto& arr) { heap_sort(arr); });
+
+	tenthousand_copy = tenthousand;
+	measure_time("Size 1M Quick Sort    ", tenthousand_copy, [](auto& arr) { quick_sort(arr); });
 
 	return 0;
 }

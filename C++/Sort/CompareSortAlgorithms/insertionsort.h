@@ -8,7 +8,7 @@ using std::array;
 template<typename T, size_t N>
 void insertion_sort(array<T,N>& a)
 {
-	for (auto j = 1; j < N; ++j) {
+	for (size_t j = 1; j < N; ++j) {
 		auto key = a[j];
 		auto i = j - 1;
 
