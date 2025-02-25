@@ -32,6 +32,7 @@ void Graph::breadthFirstSearch(Vertex *start)
 
     start->color = Color::gray;
     start->distance = 0;
+		start->parent = nullptr;
 
     queue<Vertex*> q;
     q.emplace(start);
