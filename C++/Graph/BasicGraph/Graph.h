@@ -16,23 +16,26 @@
 
 using namespace std;
 
-class Graph {
+class Graph 
+{
 public:
-    Graph();
-    Graph(const Graph& graph);
-    ~Graph();
+	
+	Graph();
+  Graph(const Graph& graph);
+  ~Graph();
 
-    void add(initializer_list<Vertex*> vertexes);
-
-    void breadthFirstSearch(Vertex* start);
-
-    bool reachableFrom(Vertex* start, Vertex* goal);
-
-    void printPath(ostream& out, Vertex* v1, Vertex* v2);
+  void add(initializer_list<Vertex*> vertexes);
+  void breadthFirstSearch(Vertex* start);
+	void depthFirstSearch(Vertex* start);
+  bool reachableFrom(Vertex* start, Vertex* goal);
+  void printPath(ostream& out, Vertex* v1, Vertex* v2);
 
 private:
-    void resetForBreadthFirstSearch();
-    vector<Vertex*> vertexes;
+  
+	void resetForBreadthFirstSearch();
+	void depthFirstSearchVisit(Vertex* vertex, int *time);
+	
+	vector<Vertex*> vertexes;
 };
 
 #endif //BASICGRAPH_GRAPH_H

@@ -14,26 +14,34 @@ enum class Color { white, gray, black };
 
 using namespace std;
 
-class Vertex {
+class Vertex 
+{
 public:
-    Vertex(const string& label);
-    Vertex(const Vertex& vertex);
-    ~Vertex();
+  
+	Vertex(const string& label);
+  Vertex(const Vertex& vertex);
+  ~Vertex();
 
-    void add(initializer_list<Vertex*> vertexes);
+  void add(initializer_list<Vertex*> vertexes);
 
-    int getDistance() const;
+  int getDistance() const;
 
+	int getStartTime() const;
+	int getEndTime() const;		
 //    friend ostream& operator<<(ostream& out, const Vertex& obj);
 
 private:
-    vector<Vertex*> adjacent_list;
-    string label;
-    Color color;
-    int distance;
-    Vertex* parent;
+	static const int UNDEFINED_TIME = -1;
 
-    friend class Graph;
+  vector<Vertex*> adjacent_list;
+  string label;
+  Color color;
+  int distance;
+  int start_time;
+	int end_time;
+  Vertex* parent;
+
+  friend class Graph;
 };
 
 //ostream& operator<<(ostream& out, const Vertex& obj)

@@ -53,7 +53,41 @@ void Graph::breadthFirstSearch(Vertex *start)
 
         current->color = Color::black;
     }
+}
 
+void Graph::depthFirstSearch(Vertex* start)
+{
+	for (auto* vertex : vertexes) {
+		vertex->color = Color::white;
+		vertex->parent = nullptr;
+	}
+
+	int *time;
+	*time = 0;
+
+	for (auto* vertex : vertexes) {
+		if (vertex->color == Color::white) {
+			depthFirstSearchVisit(vertex, time);
+		}
+	}
+}
+
+void Graph::depthFirstSearchVisit(Vertex* vertex, int *time)
+{
+	*time += 1;
+	vertex->start_time = *time;
+	vertex->color = Color::gray;
+
+	for (auto* v : vertex->adjacent_list) {
+		if (v->color == Color::white) {
+			v->parent = vertex;
+			depthFirstSearchVisit(v, time);
+		}
+	}
+
+	vertex->color = Color::black;
+	*time += 1;
+	vertex->end_time = *time;
 }
 
 bool Graph::reachableFrom(Vertex *start, Vertex *goal)

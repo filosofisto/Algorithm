@@ -126,3 +126,59 @@ TEST(GRAPH, printPath)
 
     graph->printPath(cout, start, goal);
 }
+
+TEST(GRAPH, DepthFirstSearch)
+{
+  // u - v  w
+  // | / | /|
+  // x - y  z
+  //
+
+  Vertex* u = new Vertex("u");
+  Vertex* v = new Vertex("v");
+  Vertex* w = new Vertex("w");
+  Vertex* x = new Vertex("x");
+  Vertex* y = new Vertex("y");
+  Vertex* z = new Vertex("z");
+
+  u->add({v, x});
+  v->add({y});
+  x->add({v});
+	y->add({x});
+  w->add({y,z});
+	z->add({z});
+
+  Graph* graph = new Graph();
+  graph->add({u, v, w, x, y, z});
+	
+	graph->depthFirstSearch(u);
+  
+	
+	EXPECT_EQ(1, u->getStartTime());
+	EXPECT_EQ(8, u->getEndTime());
+
+ 	EXPECT_EQ(2, v->getStartTime());
+	EXPECT_EQ(7, v->getEndTime());
+
+	EXPECT_EQ(9,  w->getStartTime());
+	EXPECT_EQ(12, w->getEndTime());
+
+	EXPECT_EQ(4, x->getStartTime());
+	EXPECT_EQ(5, x->getEndTime());
+
+	EXPECT_EQ(3, y->getStartTime());
+	EXPECT_EQ(6, y->getEndTime());
+
+	EXPECT_EQ(10, z->getStartTime());
+	EXPECT_EQ(11, z->getEndTime());
+
+	delete graph;
+  delete u;
+  delete v;
+  delete w;
+  delete x;
+	delete y;
+	delete z;
+}
+
+

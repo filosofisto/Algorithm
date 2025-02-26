@@ -38,9 +38,11 @@ if (CMAKE_VERSION VERSION_LESS 2.8.11)
     include_directories("${gtest_SOURCE_DIR}/include")
 endif()
 
+# Application executable
+add_executable(BasicGraphApp main.cpp Graph.cpp Graph.h Vertex.cpp Vertex.h)
+target_link_libraries(BasicGraphApp)
 
-# Now simply link against gtest or gtest_main as needed. Eg
-add_executable(BasicGraph Graph.cpp Graph.h Vertex.cpp Vertex.h GraphTest.cpp main.cpp)
-target_link_libraries(BasicGraph gtest_main)
-add_test(NAME BasicGraph_test COMMAND BasicGraph)
-
+# Test executable
+add_executable(BasicGraphTest GraphTest.cpp Graph.cpp Graph.h Vertex.cpp Vertex.h)
+target_link_libraries(BasicGraphTest gtest_main)
+add_test(NAME BasicGraphTest COMMAND BasicGraphTest)
