@@ -4,33 +4,33 @@ Time Complexity
 
         The best case occurs when the pivot element divides the array into two nearly equal halves at every step.
 
-        This results in a balanced recursion tree with a height of log⁡NlogN, where NN is the size of the array.
+        This results in a balanced recursion tree with a height of N log N, where N is the size of the array.
 
-        At each level of the recursion tree, the partitioning step takes O(N)O(N) time.
+        At each level of the recursion tree, the partitioning step takes O(N) time.
 
         Therefore, the best-case time complexity is:
-        T(N)=O(Nlog⁡N)
-        T(N)=O(NlogN)
+
+        T(N)=O(N log N)
 
     Average Case:
 
         On average, the pivot will divide the array into two reasonably balanced parts.
 
         Similar to the best case, the average-case time complexity is:
-        T(N)=O(Nlog⁡N)
-        T(N)=O(NlogN)
+
+        T(N)=O(N log N)
 
     Worst Case:
 
         The worst case occurs when the pivot is either the smallest or largest element in the array at every step (e.g., when the array is already sorted or reverse-sorted).
 
-        This results in a highly unbalanced recursion tree with a height of NN.
+        This results in a highly unbalanced recursion tree with a height of N.
 
-        At each level, the partitioning step still takes O(N)O(N) time.
+        At each level, the partitioning step still takes O(N) time.
 
         Therefore, the worst-case time complexity is:
-        T(N)=O(N2)
-        T(N)=O(N2)
+
+        T(N)=O(N^2)
 
     Note: The worst case can be avoided by using a randomized pivot selection (e.g., choosing a random element as the pivot) or by using the "median-of-three" strategy.
 
@@ -40,19 +40,19 @@ Space Complexity
 
         The space complexity is determined by the depth of the recursion tree.
 
-        In the best case (balanced recursion tree), the depth is O(log⁡N)O(logN), so the space complexity is:
-        S(N)=O(log⁡N)
-        S(N)=O(logN)
+        In the best case (balanced recursion tree), the depth is O(log N), so the space complexity is:
+        
+				S(N)=O(log N)
 
-        In the worst case (unbalanced recursion tree), the depth is O(N)O(N), so the space complexity is:
-        S(N)=O(N)
-        S(N)=O(N)
+        In the worst case (unbalanced recursion tree), the depth is O(N), so the space complexity is:
+        
+				S(N)=O(N)
 
     In-Place Sorting:
 
         QuickSort is an in-place sorting algorithm, meaning it does not require additional space proportional to the input size (other than the recursion stack).
 
-        The partitioning step uses only a constant amount of extra space (O(1)O(1)).
+        The partitioning step uses only a constant amount of extra space O(1).
 
 Summary
 Complexity	Best Case	Average Case	Worst Case
