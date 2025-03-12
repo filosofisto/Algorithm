@@ -38,11 +38,7 @@ if (CMAKE_VERSION VERSION_LESS 2.8.11)
     include_directories("${gtest_SOURCE_DIR}/include")
 endif()
 
-# Application executable
-add_executable(StackApp main.cpp Stack.h StackArray.h StackVector.h)
-target_link_libraries(StackApp)
-
-# Test executable
-add_executable(StackTest Test.cpp Stack.h StackArray.h StackVector.h)
-target_link_libraries(StackTest gtest_main)
-add_test(NAME StackTest COMMAND StackTest)
+# Now simply link against gtest or gtest_main as needed. Eg
+add_executable(Stack Stack.cpp Stack.h Node.cpp Node.h StackTest.cpp)
+target_link_libraries(Stack gtest_main)
+add_test(NAME Stack_test COMMAND Stack)

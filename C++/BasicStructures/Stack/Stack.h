@@ -1,96 +1,18 @@
-//
-// Created by eduardo on 22.04.20.
-//
-
-#ifndef STACK_STACK_H
-#define STACK_STACK_H
-
-#include "Node.h"
-#include <glob.h>
+#ifndef __STACK__
+#define __STACK__
 
 template <typename T>
-class Stack {
-public:
-    Stack();
-    ~Stack();
+class Stack
+{
+  public:
+    Stack() = default;
+    virtual ~Stack() = default;
 
-    Stack* push(T* data);
-    T* pop();
-    T* peek() const;
-    bool empty() const;
-    size_t getSize() const;
-private:
-    Node<T>* top;
-    size_t size;
+    virtual bool empty() const = 0;
+    virtual void push(T&& element) = 0;
+    virtual void push(const T& element) = 0;
+    virtual T pop() = 0;
+    virtual size_t size() const =  0;
 };
 
-template <typename T>
-Stack<T>::Stack(): top(nullptr), size(0)
-{
-
-}
-
-template <typename T>
-Stack<T>::~Stack()
-{
-    while (!empty()) {
-        pop();
-    }
-}
-
-template <typename T>
-Stack<T> *Stack<T>::push(T *data) {
-    auto node = new Node<T>(data);
-
-    if (empty()) {
-        top = node;
-        top->previous(nullptr);
-    } else {
-        node->previous(top);
-        top->next(node);
-        top = node;
-    }
-
-    top->next(nullptr);
-    size++;
-
-    return this;
-}
-
-template <typename T>
-T *Stack<T>::pop() {
-    if (empty()) {
-        return nullptr;
-    }
-
-    auto node = top;
-    top = top->previous();
-    size--;
-
-    T* result = node->data();
-    delete node;
-
-    return result;
-}
-
-template <typename T>
-T *Stack<T>::peek() const {
-    if (empty()) {
-        return nullptr;
-    }
-
-    return top->data();
-}
-
-template <typename T>
-bool Stack<T>::empty() const
-{
-    return size == 0;
-}
-
-template<typename T>
-size_t Stack<T>::getSize() const {
-    return size;
-}
-
-#endif //STACK_STACK_H
+#endif
