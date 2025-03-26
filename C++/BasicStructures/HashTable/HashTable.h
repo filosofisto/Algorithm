@@ -8,6 +8,11 @@ class HashTable
     HashTable() = default;
     virtual ~HashTable() = default;
 
+    HashTable(const HashTable&) = delete;
+    HashTable& operator=(const HashTable&) = delete;
+    HashTable(HashTable&&) = delete;
+    HashTable& operator=(HashTable&&) = delete;
+
     virtual T* search(const K& key) const = 0;
     virtual void insert(const K& key, T&& element) = 0;
     virtual void remove(const K& key) = 0;

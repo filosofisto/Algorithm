@@ -19,6 +19,11 @@ class DirectAddressHashTable : public HashTable<K,T>
     DirectAddressHashTable();
     virtual ~DirectAddressHashTable() override = default;
 
+    DirectAddressHashTable(const DirectAddressHashTable&) = delete;
+    DirectAddressHashTable& operator=(const DirectAddressHashTable&) = delete;
+    DirectAddressHashTable(DirectAddressHashTable&&) = delete;
+    DirectAddressHashTable& operator=(DirectAddressHashTable&&) = delete;
+
     T* search(const K& key) const override;
     void insert(const K& key, T&& element) override;
     void remove(const K& key) override;
