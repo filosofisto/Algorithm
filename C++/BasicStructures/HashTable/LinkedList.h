@@ -1,101 +1,89 @@
-#ifndef __LINKELIST__
-#define __INKEDLIST__
+#ifndef __LINKEDLIST__
+#define __LINKEDLIST__
 
 #include <memory>
+#include "Node.h"
 
-template <typename T>
-class LinkedList;
+using std::shared_ptr;
+using std::make_shared;
 
-template <typename T>
-class Node
-{
-  public:
-    Node(const T& element);
-    virtual ~Node() = default;
-
-    T data();
-
-    friend class LinkedList<T>;
-  private:
-    T element;
-    std::shared_ptr<Node<T>> previous;
-    std::shared_ptr<Node<T>> next;
-};
-
-template <typename T>
-Node<T>::Node(const T& element)
-{
-  this->element = element;
-  this->previous = nullptr;
-  this->next = nullptr;
-}
-
-template <typename T>
-T Node<T>::data()
-{
-  return element;
-}
-
-template <typename T>
+template <typename K, typename T>
 class LinkedList
 {
   public:
     LinkedList();
     virtual ~LinkedList() = default;
 
-    std::shared_ptr<Node<T>> search(const T& element) const;
+    LinkedList(const LinkedList&) = delete;
+    LinkedList& operator=(const LinkedList&) = delete;
+    LinkedList(LinkedList&&) = delete;
+    LinkedList& operator=(LinkedList&&) = delete;
+
+    shared_ptr<Node<K,T>> search(const T& element) const;
+    shared_ptr<Node<k,T>> searchByKey(const K& key) const;
     void prepend(const T& element);
     void postpend(const T& element);
-//    void insert(const T& baseElement, const T& element);
     void remove(const T& element);
+    void removeByKey(const K& key)
     bool empty() const;
     size_t size() const;
-    std::shared_ptr<Node<T>> first() const;
-    std::shared_ptr<Node<T>> last() const;
+    shared_ptr<Node<K,T>> first() const;
+    shared_ptr<Node<K,T>> last() const;
 
   private:
-    void remove(std::shared_ptr<Node<T>> node);
+    void remove(shared_ptr<Node<K,T>> node);
     
     size_t _size;
-    std::shared_ptr<Node<T>> head;
-    std::shared_ptr<Node<T>> tail;
+    shared_ptr<Node<K,T>> head;
+    shared_ptr<Node<K,T>> tail;
 };
 
-template <typename T>
-LinkedList<T>::LinkedList() : head(nullptr), tail(nullptr), _size(0)
+template <typename K, typename T>
+LinkedList<K,T>::LinkedList() : head(nullptr), tail(nullptr), _size(0)
 {
 
 }
 
-template <typename T>
-std::shared_ptr<Node<T>> LinkedList<T>::search(const T& element) const
+template <typename K, typename T>
+shared_ptr<Node<K,T>> LinkedList<K,T>::search(const T& element) const
 {
   auto nodePtr = head;
 
-  while (nodePtr != nullptr && (*nodePtr).data() != element) {
+  while (nodePtr != nullptr && (*nodePtr).getValue() != element) {
     nodePtr = nodePtr->next;
   }
 
   return nodePtr;
 }
 
-template <typename T>
-std::shared_ptr<Node<T>> LinkedList<T>::first() const
+template <typename K, typename T>
+shared_ptr<Node<K,T>> LinkedList<K,T>::searchByKey(const K& key) const
+{
+  auto nodePtr = head;
+
+  while (nodePtr != nullptr && (*nodePtr).getKey() != key) {
+    nodePtr = nodePtr->next;
+  }
+
+  return nodePtr;
+}
+
+template <typename K, typename T>
+std::shared_ptr<Node<K,T>> LinkedList<K,T>::first() const
 {
   return head;
 }
 
-template <typename T>
-std::shared_ptr<Node<T>> LinkedList<T>::last() const
+template <typename K, typename T>
+std::shared_ptr<Node<K,T>> LinkedList<K,T>::last() const
 {
   return tail;
 }
 
-
-template <typename T>
-void LinkedList<T>::prepend(const T& element)
+template <typename K, typename T>
+void LinkedList<K,T>::prepend(const K& key, const T& value)
 {
-  auto node = std::make_shared<Node<T>>(element);
+  auto node = make_shared<Node<K,T>>(key, value);
   node->next = head;
   node->previous = nullptr;
 
@@ -112,8 +100,8 @@ void LinkedList<T>::prepend(const T& element)
   _size++;
 }
 
-template <typename T>
-void LinkedList<T>::remove(std::shared_ptr<Node<T>> node)
+template <typename K, typename T>
+void LinkedList<K,T>::remove(shared_ptr<Node<K,T>> node)
 {
   if (node->previous != nullptr) {
     node->previous->next = node->next;
@@ -128,23 +116,32 @@ void LinkedList<T>::remove(std::shared_ptr<Node<T>> node)
   _size--;
 }
 
-template <typename T>
-void LinkedList<T>::remove(const T& element)
+template <typename K, typename T>
+void LinkedList<K,T>::remove(const T& value)
 {
-  auto node = search(element);
+  auto node = search(value);
   if (node != nullptr) {
     remove(node);
   }
 }
 
-template <typename T>
-bool LinkedList<T>::empty() const
+template <typename K, typename T>
+void LinkedList<K,T>::removeByKey(const K& key)
+{
+  auto node = searchByKey(key);
+  if (node != nullptr) {
+    remove(node);
+  }
+}
+
+template <typename K, typename T>
+bool LinkedList<K,T>::empty() const
 {
   return head == nullptr;
 }
 
-template <typename T>
-size_t LinkedList<T>::size() const
+template <typename K, typename T>
+size_t LinkedList<K,T>::size() const
 {
   return _size;
 }

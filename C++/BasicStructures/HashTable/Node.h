@@ -11,7 +11,7 @@ template <typename K, typename T>
 class Node
 {
   public:
-    Node(const K& key, T&& value);
+    Node(const K& key, const T& value);
     virtual ~Node() = default;
 
     K getKey() const;
@@ -19,11 +19,13 @@ class Node
 
   private:
     K _key;
-    unique_ptr<T> value_ptr;
+    T _value;
+    unique_ptr<Node<K,T>> previous;
+    unique_ptr<Node<K,T>> next;
 };
 
 template <typename K, typename T>
-Node<K,T>::Node(const K& key, T&& value) : _key(key), value_ptr(make_unique(move(value)))
+Node<K,T>::Node(const K& key, const T& value) : _key(key), _value(value), previous(nullptr), next(nullptr)
 {
 
 }
@@ -37,6 +39,6 @@ K Node<K,T>::getKey() const
 template <typename K, typename T>
 T Node<T,T>::getValue() const
 {
-  return *value_ptr;
+  return _value;
 }
 #endif
