@@ -1,21 +1,21 @@
 #include <iostream>
 #include <string>
 #include "gtest/gtest.h"
-#include "Node.h"
+#include "LinkedListNode.h"
 
 using std::string;
 
-TEST(Node, getters)
+TEST(LinkedListNode, getters)
 {
-	Node<int, string> node{1, "Cristo"};
+	LinkedListNode<int, string> node{1, string("Cristo")};
 
   EXPECT_EQ(1, node.getKey());
   EXPECT_EQ("Cristo", node.getValue());
 }
 
-TEST(Node, setValue)
+TEST(LinkedListNode, setValue)
 {
-	Node<int, string> node{1, "A"};
+	LinkedListNode<int, string> node{1, string("A")};
 
 	EXPECT_EQ(1, node.getKey());
 	EXPECT_EQ("A", node.getValue());

@@ -2,8 +2,11 @@
 #define __LINKEDLIST__
 
 #include <memory>
-#include "Node.h"
+#include "LinkedListNode.h"
 
+using std::unique_ptr;
+using std::make_unique;
+using std::move;
 using std::shared_ptr;
 using std::make_shared;
 
@@ -19,23 +22,22 @@ class LinkedList
     LinkedList(LinkedList&&) = delete;
     LinkedList& operator=(LinkedList&&) = delete;
 
-    shared_ptr<Node<K,T>> search(const T& element) const;
-    shared_ptr<Node<k,T>> searchByKey(const K& key) const;
-    void prepend(const T& element);
-    void postpend(const T& element);
+    shared_ptr<LinkedListNode<K,T>> search(const T& element) const;
+    shared_ptr<LinkedListNode<K,T>> searchByKey(const K& key) const;
+    void prepend(const K& key, T&& element);
     void remove(const T& element);
-    void removeByKey(const K& key)
+    void removeByKey(const K& key);
     bool empty() const;
     size_t size() const;
-    shared_ptr<Node<K,T>> first() const;
-    shared_ptr<Node<K,T>> last() const;
+    shared_ptr<LinkedListNode<K,T>> first() const;
+    shared_ptr<LinkedListNode<K,T>> last() const;
 
   private:
-    void remove(shared_ptr<Node<K,T>> node);
+    void remove(shared_ptr<LinkedListNode<K,T>> node);
     
     size_t _size;
-    shared_ptr<Node<K,T>> head;
-    shared_ptr<Node<K,T>> tail;
+    shared_ptr<LinkedListNode<K,T>> head;
+    shared_ptr<LinkedListNode<K,T>> tail;
 };
 
 template <typename K, typename T>
@@ -45,50 +47,50 @@ LinkedList<K,T>::LinkedList() : head(nullptr), tail(nullptr), _size(0)
 }
 
 template <typename K, typename T>
-shared_ptr<Node<K,T>> LinkedList<K,T>::search(const T& element) const
+shared_ptr<LinkedListNode<K,T>> LinkedList<K,T>::search(const T& element) const
 {
-  auto nodePtr = head;
+  auto node = head;
 
-  while (nodePtr != nullptr && (*nodePtr).getValue() != element) {
-    nodePtr = nodePtr->next;
+  while (node != nullptr && (*node).getValue() != element) {
+    node = node->getNext();
   }
 
-  return nodePtr;
+  return node;
 }
 
 template <typename K, typename T>
-shared_ptr<Node<K,T>> LinkedList<K,T>::searchByKey(const K& key) const
+shared_ptr<LinkedListNode<K,T>> LinkedList<K,T>::searchByKey(const K& key) const
 {
-  auto nodePtr = head;
+  auto node = head;
 
-  while (nodePtr != nullptr && (*nodePtr).getKey() != key) {
-    nodePtr = nodePtr->next;
+  while (node != nullptr && (*node).getKey() != key) {
+    node = node->getNext();
   }
 
-  return nodePtr;
+  return node;
 }
 
 template <typename K, typename T>
-std::shared_ptr<Node<K,T>> LinkedList<K,T>::first() const
+shared_ptr<LinkedListNode<K,T>> LinkedList<K,T>::first() const
 {
   return head;
 }
 
 template <typename K, typename T>
-std::shared_ptr<Node<K,T>> LinkedList<K,T>::last() const
+shared_ptr<LinkedListNode<K,T>> LinkedList<K,T>::last() const
 {
   return tail;
 }
 
 template <typename K, typename T>
-void LinkedList<K,T>::prepend(const K& key, const T& value)
+void LinkedList<K,T>::prepend(const K& key, T&& value)
 {
-  auto node = make_shared<Node<K,T>>(key, value);
-  node->next = head;
-  node->previous = nullptr;
+  auto node = make_shared<LinkedListNode<K,T>>(key, value);
+  node->setNext(head);
+  node->setPrevious(nullptr);
 
   if (head != nullptr) {
-    head->previous = node;
+    head->setPrevious(node);
   }
 
   head = node;
@@ -101,16 +103,16 @@ void LinkedList<K,T>::prepend(const K& key, const T& value)
 }
 
 template <typename K, typename T>
-void LinkedList<K,T>::remove(shared_ptr<Node<K,T>> node)
+void LinkedList<K,T>::remove(shared_ptr<LinkedListNode<K,T>> node)
 {
-  if (node->previous != nullptr) {
-    node->previous->next = node->next;
+  if (node->getPrevious() != nullptr) {
+    node->getPrevious()->setNext(node->getNext());
   } else {
-    head = node->next;
+    head = node->getNext();
   }
 
-  if (node->next != nullptr) {
-    node->next->previous = node->previous;
+  if (node->getNext() != nullptr) {
+    node->getNext()->setPrevious(node->getPrevious());
   }
 
   _size--;

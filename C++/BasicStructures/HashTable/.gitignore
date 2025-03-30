@@ -1,4 +1,12 @@
 *.swp
 build/
 *.o
+bin/
+lib/
+googletest-build/
+googletest-download/
+googletest-src/
+cmake_install.cmake
+CMakeFiles/
+MakeFile
 
