@@ -118,3 +118,4 @@ TEST(LinkedList, last_empty)
   EXPECT_FALSE(list.last());
 }
 
+

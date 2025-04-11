@@ -12,8 +12,22 @@ using std::unique_ptr;
 using std::make_unique;
 using std::overflow_error;
 using std::underflow_error;
+using std::size_t;
+using std::hash;
 
-template <typename K, typename T, int N>
+template <typename K>
+struct DefaultHasher
+{
+	size_t operator()(const K& key) const;
+};
+
+template <typename K>
+size_t DefaultHasher<K>::operator()(const K& key) const
+{
+	return std::hash<K>{}(key);	
+};
+
+template <typename K, typename T, size_t N, typename Hasher = DefaultHasher<K>>
 class ChainedHashTable : public HashTable<K,T>
 {
   public:
@@ -25,50 +39,85 @@ class ChainedHashTable : public HashTable<K,T>
     ChainedHashTable(ChainedHashTable&&) = delete;
     ChainedHashTable& operator=(ChainedHashTable&&) = delete;
 
-    T* search(const K& key) const override;
+    T search(const K& key) const override;
     void insert(const K& key, T&& element) override;
     void remove(const K& key) override;
     size_t size() const override;
     bool empty() const override;
+		HashTableInternalInfo getInternalInfo() const override;
 
   private:
-    array<unique_ptr<T>, N> elements;
+    array<unique_ptr<LinkedList<K,T>>, N> elements;
     int count;
+		HashTableInternalInfo internalInfo;
 };
 
-template <typename K, typename T, int N>
-ChainedHashTable<K,T,N>::ChainedHashTable() : count(0)
+template <typename K, typename T, size_t N, typename Hasher>
+ChainedHashTable<K,T,N, Hasher>::ChainedHashTable() : count(0)
 {
-  for (int i = 0; i < N; ++i) {
-    elements[i] = nullptr;
-  }
+	internalInfo.collisions = 0;
+	internalInfo.replacements = 0;
 }
  
-template <typename K, typename T, int N>
-T* ChainedHashTable<K,T,N>::search(const K& key) const
+template <typename K, typename T, size_t N, typename Hasher>
+T ChainedHashTable<K,T,N,Hasher>::search(const K& key) const
 {
-  return elements[key].get();
-}
- 
-template <typename K, typename T, int N>
-void ChainedHashTable<K,T,N>::insert(const K& key, T&& element) 
-{
-  if (key < 0) {
-    throw underflow_error{ "Underflow on min element, should be ZERO" };
-  }
+	auto hashValue = Hasher{}(key);
+	auto bucket = hashValue % N;
 
-  if (key > N-1) {
-    throw overflow_error{ "Overflow on max capacity" };
-  }
+	if (elements[bucket] != nullptr) {
+		auto node_ptr = elements[bucket]->searchByKey(key);
+		if (node_ptr != nullptr) {
+			return node_ptr->getValue();
+		}
+	}
 
-  elements[key] = make_unique<T>(move(element));
-  ++count;
+  return nullptr;
 }
  
-template <typename K, typename T, int N>
-void ChainedHashTable<K,T,N>::remove(const K& key)
+template <typename K, typename T, size_t N, typename Hasher>
+void ChainedHashTable<K,T,N,Hasher>::insert(const K& key, T&& data) 
 {
-  if (key > N-1) {
+	// Calculate the key hash
+	auto hashValue = Hasher{}(key);
+	
+	// Calculate the bucket
+	auto bucket = hashValue % N;
+
+	// Create the LinkedList if it does not exist
+	if (elements[bucket] == nullptr) {
+		elements[bucket] = make_unique<LinkedList<K,T>>();
+	} else {
+		internalInfo.collisions++; // collision
+	}
+
+	auto& list = elements[bucket];
+
+	// Search by key to check if already exists an item with this key, in this case replace it
+	auto existentData = list->searchByKey(key);
+	
+	if (existentData != nullptr) {
+		existentData->setValue(move(data));
+		internalInfo.replacements++;		
+	} else {
+		// Prepend the new element on LinkedList
+  	elements[bucket]->prepend(key, move(data));
+  	++count;
+	}
+}
+ 
+template <typename K, typename T, size_t N, typename Hasher>
+void ChainedHashTable<K,T,N,Hasher>::remove(const K& key)
+{
+	// Calculate the key hash
+	auto hashValue = Hasher{}(key);
+	
+	// Calculate the bucket
+	auto bucket = hashValue % N;
+
+	if (
+	
+  /*if (key > N-1) {
     throw overflow_error{ "Overflow on max capacity" };
   }
   if (key < 0) {
@@ -79,19 +128,24 @@ void ChainedHashTable<K,T,N>::remove(const K& key)
   }
 
   elements[key] = nullptr;
-  --count;
+  --count;*/
 } 
 
-template <typename K, typename T, int N>
-size_t ChainedHashTable<K,T,N>::size() const
+template <typename K, typename T, size_t N, typename Hasher>
+size_t ChainedHashTable<K,T,N,Hasher>::size() const
 {
   return static_cast<size_t>(count);
 }
  
-template <typename K, typename T, int N>
-bool ChainedHashTable<K,T,N>::empty() const
+template <typename K, typename T, size_t N, typename Hasher>
+bool ChainedHashTable<K,T,N,Hasher>::empty() const
 {
   return count == 0;
 }
 
+template <typename K, typename T, size_t N, typename Hasher>
+HashTableInternalInfo ChainedHashTable<K,T,N,Hasher>::getInternalInfo() const
+{
+	return internalInfo;
+}
 #endif

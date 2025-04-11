@@ -3,6 +3,7 @@ project(HashTable)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
+set(CMAKE_BUILD_TYPE Debug)
 
 # Download and unpack googletest at configure time
 configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
@@ -40,10 +41,10 @@ if (CMAKE_VERSION VERSION_LESS 2.8.11)
 endif()
 
 # Application executable
-add_executable(HashTableApp main.cpp /*HashTable.h*/ LinkedListNode.h LinkedList.h)
+add_executable(HashTableApp main.cpp HashTable.h LinkedListNode.h LinkedList.h DefaultHasher.h ChainedHashTable.h)
 target_link_libraries(HashTableApp)
 
 # Test executable
-add_executable(HashTableTest LinkedListNodeTest.cpp LinkedListNode.h LinkedList.h LinkedListTest.cpp)
+add_executable(HashTableTest HashTable.h LinkedListNodeTest.cpp LinkedListNode.h LinkedList.h LinkedListTest.cpp DefaultHasher.h DefaultHasherTest.cpp ChainedHashTable.h ChainedHashTableTest.cpp)
 target_link_libraries(HashTableTest gtest_main)
 add_test(NAME HashTableTest COMMAND HashTableTest)

@@ -25,7 +25,7 @@ class LinkedListNode
 		LinkedListNode& operator=(LinkedListNode&&) = delete;
 
     K getKey() const;
-    T& getValue() const;
+    T getValue() const;
 		void setValue(T&& value);
 
 		shared_ptr<LinkedListNode<K,T>> getPrevious() const;
@@ -54,7 +54,7 @@ K LinkedListNode<K,T>::getKey() const
 }
 
 template <typename K, typename T>
-T& LinkedListNode<K,T>::getValue() const
+T LinkedListNode<K,T>::getValue() const
 {
   return *value_ptr;
 }
