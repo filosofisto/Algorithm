@@ -47,6 +47,7 @@ class ChainedHashTable : public HashTable<K,T>
 		HashTableInternalInfo getInternalInfo() const override;
 
   private:
+		size_t getBucket(const K& key) const;
     array<unique_ptr<LinkedList<K,T>>, N> elements;
     int count;
 		HashTableInternalInfo internalInfo;
@@ -74,15 +75,21 @@ T ChainedHashTable<K,T,N,Hasher>::search(const K& key) const
 
   return nullptr;
 }
- 
+
 template <typename K, typename T, size_t N, typename Hasher>
-void ChainedHashTable<K,T,N,Hasher>::insert(const K& key, T&& data) 
+size_t ChainedHashTable<K,T,N,Hasher>::getBucket(const K& key) const
 {
 	// Calculate the key hash
 	auto hashValue = Hasher{}(key);
 	
 	// Calculate the bucket
-	auto bucket = hashValue % N;
+	return hashValue % N;
+}
+
+template <typename K, typename T, size_t N, typename Hasher>
+void ChainedHashTable<K,T,N,Hasher>::insert(const K& key, T&& data) 
+{
+	auto bucket = getBucket(key);
 
 	// Create the LinkedList if it does not exist
 	if (elements[bucket] == nullptr) {
@@ -109,26 +116,13 @@ void ChainedHashTable<K,T,N,Hasher>::insert(const K& key, T&& data)
 template <typename K, typename T, size_t N, typename Hasher>
 void ChainedHashTable<K,T,N,Hasher>::remove(const K& key)
 {
-	// Calculate the key hash
-	auto hashValue = Hasher{}(key);
-	
-	// Calculate the bucket
-	auto bucket = hashValue % N;
+	auto bucket = getBucket(key);
 
-	if (
-	
-  /*if (key > N-1) {
-    throw overflow_error{ "Overflow on max capacity" };
-  }
-  if (key < 0) {
-    throw underflow_error{ "Underflow on min element, should be ZERO" };
-  }
-  if (elements[key] == nullptr) {
-    return;
-  }
+	if (elements[bucket] == nullptr) return;
 
-  elements[key] = nullptr;
-  --count;*/
+	if (elements[bucket]->removeByKey(key)) {
+		--count;
+	} 
 } 
 
 template <typename K, typename T, size_t N, typename Hasher>

@@ -25,8 +25,8 @@ class LinkedList
     shared_ptr<LinkedListNode<K,T>> search(const T& element) const;
     shared_ptr<LinkedListNode<K,T>> searchByKey(const K& key) const;
     void prepend(const K& key, T&& element);
-    void remove(const T& element);
-    void removeByKey(const K& key);
+    bool remove(const T& element);
+    bool removeByKey(const K& key);
     bool empty() const;
     size_t size() const;
     shared_ptr<LinkedListNode<K,T>> first() const;
@@ -119,21 +119,27 @@ void LinkedList<K,T>::remove(shared_ptr<LinkedListNode<K,T>> node)
 }
 
 template <typename K, typename T>
-void LinkedList<K,T>::remove(const T& value)
+bool LinkedList<K,T>::remove(const T& value)
 {
   auto node = search(value);
   if (node != nullptr) {
     remove(node);
+		return true;
   }
+
+	return false;
 }
 
 template <typename K, typename T>
-void LinkedList<K,T>::removeByKey(const K& key)
+bool LinkedList<K,T>::removeByKey(const K& key)
 {
   auto node = searchByKey(key);
   if (node != nullptr) {
     remove(node);
+		return true;
   }
+
+	return false;
 }
 
 template <typename K, typename T>
