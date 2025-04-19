@@ -41,10 +41,10 @@ if (CMAKE_VERSION VERSION_LESS 2.8.11)
 endif()
 
 # Application executable
-add_executable(BinaryTreeApp main.cpp BinaryTree.h BinaryTreeNode.h RecursiveBinaryTree.h)
+add_executable(BinaryTreeApp main.cpp BinaryTree.h BinaryTreeNode.h RecursiveBinaryTree.h IterativeBinaryTree.h)
 target_link_libraries(BinaryTreeApp)
 
 # Test executable
-add_executable(BinaryTreeTest BinaryTree.h BinaryTreeNode.h RecursiveBinaryTree.h RecursiveBinaryTreeTest.cpp)
+add_executable(BinaryTreeTest BinaryTree.h BinaryTreeNode.h RecursiveBinaryTree.h RecursiveBinaryTreeTest.cpp IterativeBinaryTree.h IterativeBinaryTreeTest.cpp)
 target_link_libraries(BinaryTreeTest gtest_main)
 add_test(NAME BinaryTreeTest COMMAND BinaryTreeTest)
