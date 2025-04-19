@@ -225,7 +225,7 @@ TEST(IterativeBinaryTree, remove_complex)
 	tree.insert(13);
 
 	EXPECT_TRUE(tree.remove(7));
-	//EXPECT_FALSE(tree.search(7));
-	//EXPECT_TRUE(tree.search(5));
-	//EXPECT_TRUE(tree.search(9));
+	EXPECT_FALSE(tree.search(7));
+	EXPECT_TRUE(tree.search(5));
+	EXPECT_TRUE(tree.search(9));
 }
