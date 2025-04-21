@@ -79,7 +79,7 @@ void ChainedHashTableBT<K,T,N,Hasher>::insert(const K& key, const T& data)
 {
 	auto bucket = getBucket(key);
 
-	// Create the LinkedList if it does not exist
+	// Create the BinaryTree if it does not exist
 	if (elements[bucket] == nullptr) {
 		elements[bucket] = make_unique<BinaryTree<K,T>>();
 	} else {
@@ -96,7 +96,7 @@ void ChainedHashTableBT<K,T,N,Hasher>::insert(const K& key, const T& data)
 		internalInfo.replacements++;		
 	} else {
   	// insert it into tree
-		elements[bucket]->insert(key, data);
+		tree->insert(key, data);
   	++count;
 	}
 }

@@ -13,8 +13,6 @@ TEST(DefaultHasher, int)
 	auto hashValue = hasher(10);
 	auto hashFn = hash<int>{};
 
-	cout << "Hash of int 10 is " << hashValue << '\n';
-
 	EXPECT_EQ(hashFn(10), hashValue);
 }
 
@@ -23,8 +21,6 @@ TEST(DefaultHasher, string)
 	auto hasher = DefaultHasher<string>{};
 	auto hashValue = hasher("This is a sample text");
 	auto hashFn = hash<string>{};
-
-	cout << "Hash of string 'This is a sample text' is " << hashValue << '\n';
 
 	EXPECT_EQ(hashFn("This is a sample text"), hashValue);
 }
