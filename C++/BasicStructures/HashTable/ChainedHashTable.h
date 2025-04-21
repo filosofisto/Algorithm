@@ -5,6 +5,7 @@
 #include <memory>
 #include "HashTable.h"
 #include "LinkedList.h"
+#include "DefaultHasher.h"
 
 using std::array;
 using std::move;
@@ -14,18 +15,6 @@ using std::overflow_error;
 using std::underflow_error;
 using std::size_t;
 using std::hash;
-
-template <typename K>
-struct DefaultHasher
-{
-	size_t operator()(const K& key) const;
-};
-
-template <typename K>
-size_t DefaultHasher<K>::operator()(const K& key) const
-{
-	return std::hash<K>{}(key);	
-};
 
 template <typename K, typename T, size_t N, typename Hasher = DefaultHasher<K>>
 class ChainedHashTable : public HashTable<K,T>
@@ -40,7 +29,7 @@ class ChainedHashTable : public HashTable<K,T>
     ChainedHashTable& operator=(ChainedHashTable&&) = delete;
 
     T search(const K& key) const override;
-    void insert(const K& key, T&& element) override;
+    void insert(const K& key, const T& element) override;
     void remove(const K& key) override;
     size_t size() const override;
     bool empty() const override;
@@ -87,7 +76,7 @@ size_t ChainedHashTable<K,T,N,Hasher>::getBucket(const K& key) const
 }
 
 template <typename K, typename T, size_t N, typename Hasher>
-void ChainedHashTable<K,T,N,Hasher>::insert(const K& key, T&& data) 
+void ChainedHashTable<K,T,N,Hasher>::insert(const K& key, const T& data) 
 {
 	auto bucket = getBucket(key);
 
@@ -104,11 +93,11 @@ void ChainedHashTable<K,T,N,Hasher>::insert(const K& key, T&& data)
 	auto existentData = list->searchByKey(key);
 	
 	if (existentData != nullptr) {
-		existentData->setValue(move(data));
+		existentData->setValue(data);
 		internalInfo.replacements++;		
 	} else {
 		// Prepend the new element on LinkedList
-  	elements[bucket]->prepend(key, move(data));
+  	elements[bucket]->prepend(key, data);
   	++count;
 	}
 }

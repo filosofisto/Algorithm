@@ -15,8 +15,7 @@ template <typename K, typename T>
 class LinkedListNode
 {
   public:
-		template <typename U>
-    LinkedListNode(const K& key, U&& value);
+    LinkedListNode(const K& key, const T& value);
     virtual ~LinkedListNode() = default;
 
 		LinkedListNode(const LinkedListNode&) = delete;
@@ -26,23 +25,22 @@ class LinkedListNode
 
     K getKey() const;
     T getValue() const;
-		void setValue(T&& value);
+		void setValue(const T& value);
 
 		shared_ptr<LinkedListNode<K,T>> getPrevious() const;
 		shared_ptr<LinkedListNode<K,T>> getNext() const;
 		void setPrevious(shared_ptr<LinkedListNode<K,T>> previous);
 		void setNext(shared_ptr<LinkedListNode<K,T>> next);
   private:
-    K _key;
-    unique_ptr<T> value_ptr;
-    shared_ptr<LinkedListNode<K,T>> _previous;
-    shared_ptr<LinkedListNode<K,T>> _next;
+    K key;
+    T value;
+    shared_ptr<LinkedListNode<K,T>> previous;
+    shared_ptr<LinkedListNode<K,T>> next;
 };
 
 template <typename K, typename T>
-template <typename U>
-LinkedListNode<K,T>::LinkedListNode(const K& key, U&& value) : 
-	_key(key), value_ptr(make_unique<T>(forward<U>(value))), _previous(nullptr), _next(nullptr)
+LinkedListNode<K,T>::LinkedListNode(const K& key, const T& value) : 
+	key(key), value(value), previous(nullptr), next(nullptr)
 {
 
 }
@@ -50,43 +48,42 @@ LinkedListNode<K,T>::LinkedListNode(const K& key, U&& value) :
 template <typename K, typename T>
 K LinkedListNode<K,T>::getKey() const
 {
-  return _key;
+  return key;
 }
 
 template <typename K, typename T>
 T LinkedListNode<K,T>::getValue() const
 {
-  return *value_ptr;
+  return value;
 }
 
 template <typename K, typename T>
-void LinkedListNode<K,T>::setValue(T&& value)
+void LinkedListNode<K,T>::setValue(const T& value)
 {
-	value_ptr = make_unique<T>(move(value));
+	this->value = value;
 }
 
 template <typename K, typename T>
 shared_ptr<LinkedListNode<K,T>> LinkedListNode<K,T>::getPrevious() const
 {
-	return _previous;
+	return previous;
 }
 
 template <typename K, typename T>
 shared_ptr<LinkedListNode<K,T>> LinkedListNode<K,T>::getNext() const
 {
-	return _next;
+	return next;
 }
 
 template <typename K, typename T>
 void LinkedListNode<K,T>::setPrevious(shared_ptr<LinkedListNode<K,T>> previous)
 {
-	_previous = previous;
+	this->previous = previous;
 }
 		
 template <typename K, typename T>
 void LinkedListNode<K,T>::setNext(shared_ptr<LinkedListNode<K,T>> next)
 {
-	_next = next;
+	this->next = next;
 }
-
 #endif

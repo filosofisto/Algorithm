@@ -46,7 +46,7 @@ TEST(ChainedHashTable, insert_with_replacement)
 	EXPECT_EQ("B", map.search(1));
 }
 
-TEST(ChainedHashTest, remove_non_existent)
+TEST(ChainedHashTable, remove_non_existent)
 {
 	auto map = ChainedHashTable<int, string, 10>{};
 	map.insert(1, "A");
@@ -56,7 +56,7 @@ TEST(ChainedHashTest, remove_non_existent)
 	EXPECT_EQ("A", map.search(1));
 }
 
-TEST(ChainedHashTest, remove_existent)
+TEST(ChainedHashTable, remove_existent)
 {
 	auto map = ChainedHashTable<int, string, 10>{};
 	map.insert(1, "A");

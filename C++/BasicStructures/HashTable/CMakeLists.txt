@@ -41,10 +41,10 @@ if (CMAKE_VERSION VERSION_LESS 2.8.11)
 endif()
 
 # Application executable
-add_executable(HashTableApp main.cpp HashTable.h LinkedListNode.h LinkedList.h DefaultHasher.h ChainedHashTable.h)
+add_executable(HashTableApp main.cpp HashTable.h LinkedListNode.h LinkedList.h DefaultHasher.h ChainedHashTable.h ChainedHashTableBT.h BinaryTreeNode.h BinaryTree.h)
 target_link_libraries(HashTableApp)
 
 # Test executable
-add_executable(HashTableTest HashTable.h LinkedListNodeTest.cpp LinkedListNode.h LinkedList.h LinkedListTest.cpp DefaultHasher.h DefaultHasherTest.cpp ChainedHashTable.h ChainedHashTableTest.cpp)
+add_executable(HashTableTest HashTable.h LinkedListNodeTest.cpp LinkedListNode.h LinkedList.h LinkedListTest.cpp DefaultHasher.h DefaultHasherTest.cpp ChainedHashTable.h ChainedHashTableTest.cpp ChainedHashTableBT.h ChainedHashTableBTTest.cpp BinaryTreeNode.h BinaryTree.h)
 target_link_libraries(HashTableTest gtest_main)
 add_test(NAME HashTableTest COMMAND HashTableTest)

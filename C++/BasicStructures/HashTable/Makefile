@@ -239,6 +239,30 @@ gtest_main/fast:
 	$(MAKE) $(MAKESILENT) -f googletest-build/googletest/CMakeFiles/gtest_main.dir/build.make googletest-build/googletest/CMakeFiles/gtest_main.dir/build
 .PHONY : gtest_main/fast
 
+ChainedHashTableBTTest.o: ChainedHashTableBTTest.cpp.o
+.PHONY : ChainedHashTableBTTest.o
+
+# target to build an object file
+ChainedHashTableBTTest.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HashTableTest.dir/build.make CMakeFiles/HashTableTest.dir/ChainedHashTableBTTest.cpp.o
+.PHONY : ChainedHashTableBTTest.cpp.o
+
+ChainedHashTableBTTest.i: ChainedHashTableBTTest.cpp.i
+.PHONY : ChainedHashTableBTTest.i
+
+# target to preprocess a source file
+ChainedHashTableBTTest.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HashTableTest.dir/build.make CMakeFiles/HashTableTest.dir/ChainedHashTableBTTest.cpp.i
+.PHONY : ChainedHashTableBTTest.cpp.i
+
+ChainedHashTableBTTest.s: ChainedHashTableBTTest.cpp.s
+.PHONY : ChainedHashTableBTTest.s
+
+# target to generate assembly for a file
+ChainedHashTableBTTest.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HashTableTest.dir/build.make CMakeFiles/HashTableTest.dir/ChainedHashTableBTTest.cpp.s
+.PHONY : ChainedHashTableBTTest.cpp.s
+
 ChainedHashTableTest.o: ChainedHashTableTest.cpp.o
 .PHONY : ChainedHashTableTest.o
 
@@ -377,6 +401,9 @@ help:
 	@echo "... gmock_main"
 	@echo "... gtest"
 	@echo "... gtest_main"
+	@echo "... ChainedHashTableBTTest.o"
+	@echo "... ChainedHashTableBTTest.i"
+	@echo "... ChainedHashTableBTTest.s"
 	@echo "... ChainedHashTableTest.o"
 	@echo "... ChainedHashTableTest.i"
 	@echo "... ChainedHashTableTest.s"
