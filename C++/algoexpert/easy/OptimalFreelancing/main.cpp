@@ -11,7 +11,7 @@ constexpr int DAYS_OF_WEEK = 7;
 int optimalFreelancing(vector<unordered_map<string, int>> jobs)
 {
 	int profit = 0;
-	array<bool, DAYS_OF_WEEK>	daysWorked;
+	array<bool, DAYS_OF_WEEK>	daysWorked{false, false, false, false, false, false, false};
 	
 	// descendent sort by payment
 	sort(jobs.begin(), jobs.end(), [](const auto& a, const auto& b) {
@@ -55,13 +55,13 @@ int main()
 
 // case 3
     {
-    	{ {"deadline": 2}, {"payment": 2} },
-    	{ {"deadline": 4}, {"payment": 3} },
-    	{ {"deadline": 5}, {"payment": 1} },
-    	{ {"deadline": 7}, {"payment": 2} },
-    	{ {"deadline": 3}, {"payment": 1} },
-    	{ {"deadline": 3}, {"payment": 2} },
-    	{ {"deadline": 1}, {"payment": 3} }
+    	{ {"deadline", 2}, {"payment", 2} },
+    	{ {"deadline", 4}, {"payment", 3} },
+    	{ {"deadline", 5}, {"payment", 1} },
+    	{ {"deadline", 7}, {"payment", 2} },
+    	{ {"deadline", 3}, {"payment", 1} },
+    	{ {"deadline", 3}, {"payment", 2} },
+    	{ {"deadline", 1}, {"payment", 3} }
     };
 
 	cout << optimalFreelancing(jobs) << '\n';
