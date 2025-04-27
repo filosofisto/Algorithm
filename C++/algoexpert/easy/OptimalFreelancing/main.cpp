@@ -2,10 +2,11 @@
 #include <vector>
 #include <map>
 #include <unordered_map>
+#include <array>
 
 using namespace std;
 
-map<int, unordered_map<string, int>> bestPaymentByDeadline(vector<unordered_map<string, int>> jobs)
+/*map<int, unordered_map<string, int>> bestPaymentByDeadline(vector<unordered_map<string, int>> jobs)
 {
 	map<int, unordered_map<string, int>> bestRecords;
  
@@ -20,9 +21,9 @@ map<int, unordered_map<string, int>> bestPaymentByDeadline(vector<unordered_map<
 	}
 
 	return bestRecords;
-}
+}*/
 
-int optimalFreelancing(vector<unordered_map<string, int>> jobs)
+/*int optimalFreelancing(vector<unordered_map<string, int>> jobs)
 {
 	auto payments = bestPaymentByDeadline(jobs);
 
@@ -44,6 +45,32 @@ int optimalFreelancing(vector<unordered_map<string, int>> jobs)
 	}
 
 	return totalPayment;
+}*/
+
+constexpr int DAYS_OF_WEEK = 7;
+
+int optimalFreelancing(vector<unordered_map<string, int>> jobs)
+{
+	int profit = 0;
+	array<bool, DAYS_OF_WEEK>	daysWorked;
+	
+	// descendent sort by payment
+	sort(jobs.begin(), jobs.end(), [](const auto& a, const auto& b) {
+		return a.at("payment") > b.at("payment");
+	});
+	
+	for (const auto& job : jobs) {
+		// find the farest not filled
+		for (int i = job.at("deadline")-1; i > -1; --i) {
+			if (!daysWorked[i]) {
+				daysWorked[i] = true;
+				profit += job.at("payment");
+				break;
+			}
+		}
+	}
+
+	return profit;
 }
 
 int main()
@@ -54,34 +81,13 @@ int main()
 //		{ {"deadline", 2}, {"payment", 1} },
 //		{ {"deadline", 2}, {"payment", 2} }
     {
-    {
-      "deadline": 2,
-      "payment": 1
-    },
-    {
-      "deadline": 2,
-      "payment": 2
-    },
-    {
-      "deadline": 2,
-      "payment": 3
-    },
-    {
-      "deadline": 2,
-      "payment": 4
-    },
-    {
-      "deadline": 2,
-      "payment": 5
-    },
-    {
-      "deadline": 2,
-      "payment": 6
-    },
-    {
-      "deadline": 2,
-      "payment": 7
-    }
+    	{ {"deadline", 2}, {"payment", 1} },
+    	{ {"deadline", 2}, {"payment", 2} },
+    	{ {"deadline", 2}, {"payment", 3} },
+    	{ {"deadline", 2}, {"payment", 4} },
+    	{ {"deadline", 2}, {"payment", 5} },
+    	{ {"deadline", 2}, {"payment", 6} },
+    	{ {"deadline", 2}, {"payment", 7} }
     };
 
 	cout << optimalFreelancing(jobs) << '\n';
