@@ -33,12 +33,12 @@ vector<int> twoNumberSum(vector<int> array, int targetSum)
 			second = array[j];
 
 			if (first+second == targetSum) {
-				return vector<int>{first, second};
-			}	
-		}		
+				return {first, second};
+			}
+		}	
 	}
 
-	return vector<int>{};
+	return {};
 }
 
 template <typename T>
