@@ -54,15 +54,29 @@ int main()
 //    };
 
 // case 3
-    {
-    	{ {"deadline", 2}, {"payment", 2} },
-    	{ {"deadline", 4}, {"payment", 3} },
-    	{ {"deadline", 5}, {"payment", 1} },
-    	{ {"deadline", 7}, {"payment", 2} },
-    	{ {"deadline", 3}, {"payment", 1} },
-    	{ {"deadline", 3}, {"payment", 2} },
-    	{ {"deadline", 1}, {"payment", 3} }
-    };
+//    {
+//    	{ {"deadline", 2}, {"payment", 2} },
+//    	{ {"deadline", 4}, {"payment", 3} },
+//    	{ {"deadline", 5}, {"payment", 1} },
+//    	{ {"deadline", 7}, {"payment", 2} },
+//    	{ {"deadline", 3}, {"payment", 1} },
+//    	{ {"deadline", 3}, {"payment", 2} },
+//    	{ {"deadline", 1}, {"payment", 3} }
+//    };
+
+// case 4
+  {
+    { {"deadline": 1}, {"payment": 1} },
+    { {"deadline": 2}, {"payment": 1} },
+    {"deadline": 3}, {"payment": 1} },
+    {"deadline": 4}, {"payment": 1} },
+    {"deadline": 5}, {"payment": 1} },
+    {"deadline": 6}, {"payment": 1} },
+    {"deadline": 7}, {"payment": 1} },
+    {"deadline": 8}, {"payment": 1} },
+    {"deadline": 9}, {"payment": 1} },
+    {"deadline": 10}, {"payment": 1} }
+  };
 
 	cout << optimalFreelancing(jobs) << '\n';
 
