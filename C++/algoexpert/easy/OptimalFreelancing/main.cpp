@@ -48,11 +48,41 @@ int optimalFreelancing(vector<unordered_map<string, int>> jobs)
 
 int main()
 {
-	vector<unordered_map<string, int>> jobs = {	
-		{ {"deadline", 1}, {"payment", 1} },
-		{ {"deadline", 2}, {"payment", 1} },
-		{ {"deadline", 2}, {"payment", 2} }
-	};
+	vector<unordered_map<string, int>> jobs = 
+//	{	
+//		{ {"deadline", 1}, {"payment", 1} },
+//		{ {"deadline", 2}, {"payment", 1} },
+//		{ {"deadline", 2}, {"payment", 2} }
+    {
+    {
+      "deadline": 2,
+      "payment": 1
+    },
+    {
+      "deadline": 2,
+      "payment": 2
+    },
+    {
+      "deadline": 2,
+      "payment": 3
+    },
+    {
+      "deadline": 2,
+      "payment": 4
+    },
+    {
+      "deadline": 2,
+      "payment": 5
+    },
+    {
+      "deadline": 2,
+      "payment": 6
+    },
+    {
+      "deadline": 2,
+      "payment": 7
+    }
+    };
 
 	cout << optimalFreelancing(jobs) << '\n';
 
