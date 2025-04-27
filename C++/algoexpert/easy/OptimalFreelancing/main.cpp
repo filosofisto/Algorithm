@@ -21,7 +21,7 @@ int optimalFreelancing(vector<unordered_map<string, int>> jobs)
 	for (const auto& job : jobs) {
 		// find the farest not filled
 		auto deadline = job.at("deadline");
-		if (deadline > 7) break;
+		if (deadline > 7) deadline = 7;
 
 		for (int i = deadline-1; i > -1; --i) {
 			if (!daysWorked[i]) {
