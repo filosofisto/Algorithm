@@ -23,7 +23,7 @@ int optimalFreelancing(vector<unordered_map<string, int>> jobs)
 		auto deadline = job.at("deadline");
 		if (deadline > 7) break;
 
-		for (int i = job.at("deadline")-1; i > -1; --i) {
+		for (int i = deadline-1; i > -1; --i) {
 			if (!daysWorked[i]) {
 				daysWorked[i] = true;
 				profit += job.at("payment");
