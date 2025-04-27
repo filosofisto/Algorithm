@@ -6,47 +6,6 @@
 
 using namespace std;
 
-/*map<int, unordered_map<string, int>> bestPaymentByDeadline(vector<unordered_map<string, int>> jobs)
-{
-	map<int, unordered_map<string, int>> bestRecords;
- 
-	for (const auto& record: jobs) {
-		int deadline = record.at("deadline");
-		int payment = record.at("payment");
-
-		auto it = bestRecords.find(deadline);
-		if (it == bestRecords.end() || payment > it->second.at("payment")) {
-			bestRecords[deadline] = record;
-		}
-	}
-
-	return bestRecords;
-}*/
-
-/*int optimalFreelancing(vector<unordered_map<string, int>> jobs)
-{
-	auto payments = bestPaymentByDeadline(jobs);
-
-	int day = 1;
-	int totalPayment = 0;
-	
-	for (const auto& pair : payments) {
-		int deadline = pair.first;
-
-		if (day <= deadline) {
-			const auto& record = pair.second;	
-			totalPayment += record.at("payment");
-			day++;
-		}
-
-		if (day > 7) {
-			break;
-		}
-	}
-
-	return totalPayment;
-}*/
-
 constexpr int DAYS_OF_WEEK = 7;
 
 int optimalFreelancing(vector<unordered_map<string, int>> jobs)
@@ -76,18 +35,33 @@ int optimalFreelancing(vector<unordered_map<string, int>> jobs)
 int main()
 {
 	vector<unordered_map<string, int>> jobs = 
+// case 1
 //	{	
 //		{ {"deadline", 1}, {"payment", 1} },
 //		{ {"deadline", 2}, {"payment", 1} },
 //		{ {"deadline", 2}, {"payment", 2} }
+//	};
+
+// case 2
+//    {
+//    	{ {"deadline", 2}, {"payment", 1} },
+//    	{ {"deadline", 2}, {"payment", 2} },
+//    	{ {"deadline", 2}, {"payment", 3} },
+//    	{ {"deadline", 2}, {"payment", 4} },
+//    	{ {"deadline", 2}, {"payment", 5} },
+//    	{ {"deadline", 2}, {"payment", 6} },
+//    	{ {"deadline", 2}, {"payment", 7} }
+//    };
+
+// case 3
     {
-    	{ {"deadline", 2}, {"payment", 1} },
-    	{ {"deadline", 2}, {"payment", 2} },
-    	{ {"deadline", 2}, {"payment", 3} },
-    	{ {"deadline", 2}, {"payment", 4} },
-    	{ {"deadline", 2}, {"payment", 5} },
-    	{ {"deadline", 2}, {"payment", 6} },
-    	{ {"deadline", 2}, {"payment", 7} }
+    	{ {"deadline": 2}, {"payment": 2} },
+    	{ {"deadline": 4}, {"payment": 3} },
+    	{ {"deadline": 5}, {"payment": 1} },
+    	{ {"deadline": 7}, {"payment": 2} },
+    	{ {"deadline": 3}, {"payment": 1} },
+    	{ {"deadline": 3}, {"payment": 2} },
+    	{ {"deadline": 1}, {"payment": 3} }
     };
 
 	cout << optimalFreelancing(jobs) << '\n';
