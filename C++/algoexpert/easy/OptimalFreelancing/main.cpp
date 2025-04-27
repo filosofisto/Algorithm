@@ -20,6 +20,9 @@ int optimalFreelancing(vector<unordered_map<string, int>> jobs)
 	
 	for (const auto& job : jobs) {
 		// find the farest not filled
+		auto deadline = job.at("deadline");
+		if (deadline > 7) break;
+
 		for (int i = job.at("deadline")-1; i > -1; --i) {
 			if (!daysWorked[i]) {
 				daysWorked[i] = true;
@@ -66,16 +69,16 @@ int main()
 
 // case 4
   {
-    { {"deadline": 1}, {"payment": 1} },
-    { {"deadline": 2}, {"payment": 1} },
-    {"deadline": 3}, {"payment": 1} },
-    {"deadline": 4}, {"payment": 1} },
-    {"deadline": 5}, {"payment": 1} },
-    {"deadline": 6}, {"payment": 1} },
-    {"deadline": 7}, {"payment": 1} },
-    {"deadline": 8}, {"payment": 1} },
-    {"deadline": 9}, {"payment": 1} },
-    {"deadline": 10}, {"payment": 1} }
+    { {"deadline", 1}, {"payment", 1} },
+    { {"deadline", 2}, {"payment", 1} },
+    { {"deadline", 3}, {"payment", 1} },
+    { {"deadline", 4}, {"payment", 1} },
+    { {"deadline", 5}, {"payment", 1} },
+    { {"deadline", 6}, {"payment", 1} },
+    { {"deadline", 7}, {"payment", 1} },
+    { {"deadline", 8}, {"payment", 1} },
+    { {"deadline", 9}, {"payment", 1} },
+    { {"deadline", 10}, {"payment", 1} }
   };
 
 	cout << optimalFreelancing(jobs) << '\n';
