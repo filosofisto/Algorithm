@@ -1,3 +1,0 @@
-/home/parallels/Dev/Algorithm/C++/Asynchronous/Threads/thread01/build/CMakeFiles/app.dir
-/home/parallels/Dev/Algorithm/C++/Asynchronous/Threads/thread01/build/CMakeFiles/edit_cache.dir
-/home/parallels/Dev/Algorithm/C++/Asynchronous/Threads/thread01/build/CMakeFiles/rebuild_cache.dir
