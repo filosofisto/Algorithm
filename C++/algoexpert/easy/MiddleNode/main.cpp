@@ -23,9 +23,11 @@ LinkedList* middleNode(LinkedList* linkedList) {
 
 	// calculate the middle element
 	current = linkedList;
-	int middle{size%2 == 0 ? (size/2)+1 : size/2};
+	int middle{size/2};
 
-	for (int i{1}; i < middle; ++i) {
+	// move to the middle element
+	int pos = 1;
+	while (current != nullptr && pos++ <= middle) {
 		current = current->next;
 	}
 
@@ -50,10 +52,12 @@ int main()
 	LinkedList* _2 = new LinkedList{7};
 	LinkedList* _3 = new LinkedList{3};
 	LinkedList* _4 = new LinkedList{5};
-
+	LinkedList* _5 = new LinkedList{7};
+	
 	_1->next = _2;
 	_2->next = _3;
 	_3->next = _4;
+	_4->next = _5;
 
 	print(_1);
 
