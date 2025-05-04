@@ -6,7 +6,7 @@ bool isPalindrome(string str)
 {
 	const size_t length = str.size();
 
-	for (size_t i{0}, j{length-1}; i < length && j > -1; ++i, --j) {
+	for (size_t i{0}, j{length-1}; i < length; ++i, --j) {
 		if (str[i] != str[j]) {
 			return false;
 		}
@@ -17,7 +17,9 @@ bool isPalindrome(string str)
 
 int main()
 {
-	cout << boolalpha << isPalindrome("abcdcba") << endl;
 
+	//cout << boolalpha << isPalindrome("abcdcba") << endl;
+	cout << boolalpha << isPalindrome("ab") << endl;
+	
 	return EXIT_SUCCESS;
 }
