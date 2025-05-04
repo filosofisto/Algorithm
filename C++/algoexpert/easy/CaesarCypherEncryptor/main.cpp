@@ -5,14 +5,9 @@ using namespace std;
 string caesarCypherEncryptor(string str, int key) 
 {
   string result{str};
-	key = key % 26;
 
 	for (auto& ch : result) {
-		ch = ch + key;
-		
-		if (ch > 122) {
-			ch = 96 + ch - 122;
-		}		
+		ch = (ch - 'a' + key) % 26 + 'a';
 	}
 
   return result;
