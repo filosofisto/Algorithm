@@ -6,8 +6,6 @@ using namespace std;
 vector<int> findThreeLargestNumbers(vector<int> array) 
 {
 	size_t size = array.size();
-	if (size <= 3) return array;
-
 	int firstLargestPos{0};
 	int secondLargestPos{-1};
 	int thirdLargestPos{-1};
@@ -51,6 +49,9 @@ int main()
 {
 	vector<int> array{10, 5, 9, 10, 12};
 	show(findThreeLargestNumbers(array));
+
+	vector<int> array2{55, 7, 8};
+	show(findThreeLargestNumbers(array2));
 
 	return EXIT_SUCCESS;
 }
