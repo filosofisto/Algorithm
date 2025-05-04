@@ -36,8 +36,10 @@ string runLengthEncoding(string str)
 
 int main()
 {
-	string test{"AAAAAAAAAAAAABBCCCCDD"};
+	//string test{"AAAAAAAAAAAAABBCCCCDD"};
 	//string test{"aA"};
+	
+	string test{"........______=========AAAA   AAABBBB   BBB"};
 	cout << runLengthEncoding(test) << '\n';
 
 	return EXIT_SUCCESS;
