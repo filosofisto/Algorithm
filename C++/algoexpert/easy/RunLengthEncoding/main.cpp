@@ -5,36 +5,15 @@ using namespace std;
 
 string runLengthEncoding(string str) 
 {
-	/*
-	char curr = str[0];
 	size_t length = str.size();
 	int count = 1;
 	ostringstream oss;
 
-	for (size_t i{1}; i < length; ++i) {
-		if (str[i] == curr) {
-			if (++count == 9) { // 9 is the max length
-				oss << count << curr;
-				count = 1;
-			}
-
-			if (i == (length - 1)) {
-				oss << count << curr;		
-			}
-		} else {
-			oss << count << curr;
-			count = 1;
-			curr = str[i];
-
-			if (i == (length - 1)) {
-				oss << count << curr;
-			}
-		}
-	}*/
-
-	size_t length = str.size();
-	int count = 1;
-	ostringstream oss;
+	// special case string length equal to one
+	if (length == 1) {
+		oss << 1 << str[0];
+		return oss.str();	
+	}
 
 	for (size_t i{1}; i < length; ++i) {
 		if (str[i-1] == str[i]) {
@@ -69,8 +48,8 @@ string runLengthEncoding(string str)
 int main()
 {
 	//string test{"AAAAAAAAAAAAABBCCCCDD"};
-	string test{"aA"};
-	
+	//string test{"aA"};
+	string test{" "};
 	//string test{"........______=========AAAA   AAABBBB   BBB"};
 	//string test{" "};
 	cout << runLengthEncoding(test) << '\n';
