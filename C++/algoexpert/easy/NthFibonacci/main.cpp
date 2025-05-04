@@ -2,13 +2,19 @@
 
 using namespace std;
 
-int getNthFib(int n) 
+
+int fib(int n)
 {
-  if (n < 0) return -1; // error condition
 	if (n == 0) return 0;
 	if (n == 1) return 1;
+	return fib(n-1) + fib(n-2);
+}
 
-  return getNthFib(n-1) + getNthFib(n-2);
+int getNthFib(int n)
+{
+	if (n == 0) return 0;
+	if (n == 1) return 1;
+	return fib(n-1);
 }
 
 int main()
@@ -20,6 +26,11 @@ int main()
 	cout << "Fib(3) = " << getNthFib(3) << '\n';
 	cout << "Fib(4) = " << getNthFib(4) << '\n';
 	cout << "Fib(5) = " << getNthFib(5) << '\n';
-
+	cout << "Fib(6) = " << getNthFib(6) << '\n';
+	cout << "Fib(7) = " << getNthFib(7) << '\n';
+	cout << "Fib(8) = " << getNthFib(8) << '\n';
+	cout << "Fib(9) = " << getNthFib(9) << '\n';
+	cout << "Fib(10) = " << getNthFib(10) << '\n';
+	
 	return EXIT_SUCCESS;
 }
