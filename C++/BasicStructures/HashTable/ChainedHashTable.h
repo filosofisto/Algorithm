@@ -97,7 +97,7 @@ void ChainedHashTable<K,T,N,Hasher>::insert(const K& key, const T& data)
 		internalInfo.replacements++;		
 	} else {
 		// Prepend the new element on LinkedList
-  	elements[bucket]->prepend(key, data);
+  	list->prepend(key, data);
   	++count;
 	}
 }
