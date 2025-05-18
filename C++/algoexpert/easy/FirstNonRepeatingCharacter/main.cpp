@@ -10,27 +10,24 @@ int firstNonRepeatingCharacter(string str) {
 		m[c]++;
 	}
 
-	char ch{'\0'};
+	size_t pos = -1;
 
-	for (const auto& pair : m) {
-		if (pair.second == 1) {
-			ch = pair.first;
-			break;
+	for (char ch : str) {
+		++pos;
+		if (m[ch] == 1) {
+			return pos;
 		}
 	}
-	
-	if (ch == '\0') {
-		return -1;
-	}
 
-	return str.find(ch);
+	return -1;
 }
 
 int main()
 {
 	//string s{"abcdcaf"};
 	//string s{"abbccaf"};
-	string s{"abcdcaf"};
+	//string s{"abcdcaf"};
+	string s{"ggyllaylacrhdzedddjsc"};
 	
 	cout << firstNonRepeatingCharacter(s) << '\n';
 
