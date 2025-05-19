@@ -64,7 +64,20 @@ void print(const vector<vector<string>>& vec)
 int main()
 {
 	//vector<string> words{"diaper", "abc", "test", "cba", "repaid"};
-	vector<string> words{};
+	//vector<string> words{};
+	//vector<string> words{"aaa", "bbbb"};
+	//vector<string> words{"dog", "god"};
+	//vector<string> words{"aaa", "bbbb"};
+	//vector<string> words{"dog", "hello", "god"};
+	//vector<string> words{"aaa", "bbbb"};
+	//vector<string> words{"dog", "desserts", "god", "stressed"};
+	//vector<string> words{"dog", "hello", "desserts", "test", "god", "stressed"};
+	//vector<string> words{"aaa", "bbbb"};
+	//vector<string> words{"abcde", "edcba", "edbc", "edb", "cbde", "abc"};
+	//vector<string> words{"abcde", "bcd", "dcb", "edcba", "aaa"};
+	vector<string> words{"abcdefghijk", "aaa", "hello", "racecar", "kjihgfedcba"};
+
+
 	print(semordnilap(words));
 
 	return EXIT_SUCCESS;
