@@ -18,10 +18,13 @@ vector<vector<string>> semordnilap(vector<string> words)
 	vector<vector<string>> result{};
 	set<string> processed;
 
-	for (size_t i{0}; i < words.size()-1; ++i) {
+	int limitOut{static_cast<int>(words.size()-1)};
+	int limitInner{static_cast<int>(words.size())};
+
+	for (int i{0}; i < limitOut; ++i) {
 		bool stop = false;
 
-		for (size_t j{i+1}; j < words.size() && !stop; ++j) {
+		for (int j{i+1}; j < limitInner && !stop; ++j) {
 			if (processed.find(words[j]) != processed.end()) {
 				continue;
 			}
@@ -60,7 +63,8 @@ void print(const vector<vector<string>>& vec)
 
 int main()
 {
-	vector<string> words{"diaper", "abc", "test", "cba", "repaid"};
+	//vector<string> words{"diaper", "abc", "test", "cba", "repaid"};
+	vector<string> words{};
 	print(semordnilap(words));
 
 	return EXIT_SUCCESS;
