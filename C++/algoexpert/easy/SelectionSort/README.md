@@ -1,3 +1,3 @@
-# Insertion Sort
+# Selection Sort
 
 ![Problem](problem.png)

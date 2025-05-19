@@ -4,23 +4,23 @@
 
 using namespace std;
 
-vector<int> insertionSort(vector<int> array) 
+vector<int> selectionSort(vector<int> array) 
 {
 	vector<int> result{array};
-	size_t limit{array.size()};
-	int key;
-	int j;
+	size_t limitOut{array.size()-1};
+	size_t limitInner{array.size()};
+	size_t minPos;
 
-	for (size_t i{1}; i < limit; ++i) {
-		key = result[i];
-		j = i - 1;
+	for (size_t i{0}; i < limitOut; ++i) {
+		minPos = i;
 
-		while (j >= 0 && result[j] > key) {
-			result[j+1] = result[j];
-			--j;
+		for (size_t j{i+1}; j < limitInner; ++j) {
+			if (result[j] < result[minPos]) {
+				minPos = j;
+			}
 		}
 
-		result[j+1] = key;	
+		swap(result[i], result[minPos]);
 	}
 
   return result;
@@ -29,7 +29,7 @@ vector<int> insertionSort(vector<int> array)
 int main()
 {
 	vector<int> array{9, 8, 7};
-	vector<int> result{insertionSort(array)};
+	vector<int> result{selectionSort(array)};
 
 	copy(result.begin(), result.end(), ostream_iterator<int>{cout, " "});
 
