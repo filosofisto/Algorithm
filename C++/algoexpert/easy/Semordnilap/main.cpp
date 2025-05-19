@@ -75,8 +75,8 @@ int main()
 	//vector<string> words{"aaa", "bbbb"};
 	//vector<string> words{"abcde", "edcba", "edbc", "edb", "cbde", "abc"};
 	//vector<string> words{"abcde", "bcd", "dcb", "edcba", "aaa"};
-	vector<string> words{"abcdefghijk", "aaa", "hello", "racecar", "kjihgfedcba"};
-
+	//vector<string> words{"abcdefghijk", "aaa", "hello", "racecar", "kjihgfedcba"};
+	vector<string> words{"liver", "dog", "hello", "desserts", "evil", "test", "god", "stressed", "racecar", "palindromes", "semordnilap", "abcd", "live"};
 
 	print(semordnilap(words));
 
