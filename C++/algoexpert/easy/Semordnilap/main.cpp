@@ -1,87 +1,67 @@
 #include <iostream>
 #include <vector>
-#include <map>
-#include <unordered_map>
-#include <array>
+#include <algorithm>
+#include <set>
 
 using namespace std;
 
-constexpr int DAYS_OF_WEEK = 7;
-
-int optimalFreelancing(vector<unordered_map<string, int>> jobs)
+bool test(const string& a, const string& b)
 {
-	int profit = 0;
-	array<bool, DAYS_OF_WEEK>	daysWorked{false, false, false, false, false, false, false};
-	
-	// descendent sort by payment
-	sort(jobs.begin(), jobs.end(), [](const auto& a, const auto& b) {
-		return a.at("payment") > b.at("payment");
-	});
-	
-	for (const auto& job : jobs) {
-		// find the farest not filled
-		auto deadline = job.at("deadline");
-		if (deadline > 7) deadline = 7;
+	string bcopy{b};
+	reverse(bcopy.begin(), bcopy.end());
 
-		for (int i = deadline-1; i > -1; --i) {
-			if (!daysWorked[i]) {
-				daysWorked[i] = true;
-				profit += job.at("payment");
-				break;
+	return a.size() == b.size() && a == bcopy;
+}
+
+vector<vector<string>> semordnilap(vector<string> words)
+{
+	vector<vector<string>> result{};
+	set<string> processed;
+
+	for (size_t i{0}; i < words.size()-1; ++i) {
+		bool stop = false;
+
+		for (size_t j{i+1}; j < words.size() && !stop; ++j) {
+			if (processed.find(words[j]) != processed.end()) {
+				continue;
+			}
+
+			if (test(words[i], words[j])) {
+				result.push_back({words[i], words[j]});
+				stop = true;
+				processed.insert(words[j]);
 			}
 		}
+
+		processed.insert(words[i]);
 	}
 
-	return profit;
+	return result;
+}
+
+void print(const vector<vector<string>>& vec)
+{
+	cout << "[";
+
+	for (const auto& v : vec) {
+		cout << "[";
+		
+		for (const auto& s : v) {
+			cout << s << ", ";
+		}
+		
+		cout << "\b\b";
+		cout << "], ";
+	}
+
+	cout << "\b\b";
+	cout << "]\n";
 }
 
 int main()
 {
-	vector<unordered_map<string, int>> jobs = 
-// case 1
-//	{	
-//		{ {"deadline", 1}, {"payment", 1} },
-//		{ {"deadline", 2}, {"payment", 1} },
-//		{ {"deadline", 2}, {"payment", 2} }
-//	};
-
-// case 2
-//    {
-//    	{ {"deadline", 2}, {"payment", 1} },
-//    	{ {"deadline", 2}, {"payment", 2} },
-//    	{ {"deadline", 2}, {"payment", 3} },
-//    	{ {"deadline", 2}, {"payment", 4} },
-//    	{ {"deadline", 2}, {"payment", 5} },
-//    	{ {"deadline", 2}, {"payment", 6} },
-//    	{ {"deadline", 2}, {"payment", 7} }
-//    };
-
-// case 3
-//    {
-//    	{ {"deadline", 2}, {"payment", 2} },
-//    	{ {"deadline", 4}, {"payment", 3} },
-//    	{ {"deadline", 5}, {"payment", 1} },
-//    	{ {"deadline", 7}, {"payment", 2} },
-//    	{ {"deadline", 3}, {"payment", 1} },
-//    	{ {"deadline", 3}, {"payment", 2} },
-//    	{ {"deadline", 1}, {"payment", 3} }
-//    };
-
-// case 4
-  {
-    { {"deadline", 1}, {"payment", 1} },
-    { {"deadline", 2}, {"payment", 1} },
-    { {"deadline", 3}, {"payment", 1} },
-    { {"deadline", 4}, {"payment", 1} },
-    { {"deadline", 5}, {"payment", 1} },
-    { {"deadline", 6}, {"payment", 1} },
-    { {"deadline", 7}, {"payment", 1} },
-    { {"deadline", 8}, {"payment", 1} },
-    { {"deadline", 9}, {"payment", 1} },
-    { {"deadline", 10}, {"payment", 1} }
-  };
-
-	cout << optimalFreelancing(jobs) << '\n';
+	vector<string> words{"diaper", "abc", "test", "cba", "repaid"};
+	print(semordnilap(words));
 
 	return EXIT_SUCCESS;
 }
