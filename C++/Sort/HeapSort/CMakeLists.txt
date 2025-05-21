@@ -39,6 +39,6 @@ if (CMAKE_VERSION VERSION_LESS 2.8.11)
 endif()
 
 # Now simply link against gtest or gtest_main as needed. Eg
-add_executable(HeapSort heapsort.h Test.cpp)
+add_executable(HeapSort heapsort.h main.cpp)
 target_link_libraries(HeapSort gtest_main)
-add_test(NAME HeapSort_test COMMAND HeapSort)
+add_test(HeapSortTest HeapSort_test COMMAND HeapSort)
