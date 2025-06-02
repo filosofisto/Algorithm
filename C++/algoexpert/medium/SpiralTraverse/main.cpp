@@ -52,16 +52,24 @@ void print(const vector<int> array)
 
 int main()
 {
-	vector<vector<int>> matrix = {
+	/*vector<vector<int>> matrix = {
 		{1, 2, 3, 4},
 		{12, 13, 14, 5},
 		{11, 16, 15, 6},
 		{10, 9, 8, 7}
-	};
+	};*/
 
 	/*vector<vector<int>> matrix = {
 		{1}
 	};*/
+
+	{
+  		"array": [
+    				[1, 2, 3, 4],
+    				[10, 11, 12, 5],
+    				[9, 8, 7, 6]
+  			]
+	}
 
 	print(spiralTraverse(matrix));
 
