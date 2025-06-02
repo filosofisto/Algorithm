@@ -8,12 +8,14 @@ using namespace std;
 vector<int> spiralTraverse(vector<vector<int>> array) 
 {
 	vector<int> ret{};
+	if (array.size() == 0) return ret;
+
 	int startRow{0};
 	int endRow{static_cast<int>(array.size())-1};
 	int startCol{0};
 	int endCol{static_cast<int>(array[0].size())-1};
 
-	while (startRow < endRow && startCol < endCol) {
+	while (startRow <= endRow && startCol <= endCol) {
 		// Left to Right Row
 		for (int c{startCol}; c <= endCol; ++c) {
 			ret.push_back(array[startRow][c]);
@@ -56,6 +58,10 @@ int main()
 		{11, 16, 15, 6},
 		{10, 9, 8, 7}
 	};
+
+	/*vector<vector<int>> matrix = {
+		{1}
+	};*/
 
 	print(spiralTraverse(matrix));
 
