@@ -21,21 +21,24 @@ vector<int> spiralTraverse(vector<vector<int>> array)
 			ret.push_back(array[startRow][c]);
 		}
 		startRow++;
+		if (startRow > endRow) break;
 
 		// Up to Down Col
-		for (int r{startRow+1}; r <= endRow; ++r) {
+		for (int r{startRow}; r <= endRow; ++r) {
 			ret.push_back(array[r][endCol]);
 		}
 		endCol--;
+		if (startCol > endCol) break;
 
 		// Right to Left Row
-		for (int c{endCol-1}; c >= startCol; --c) {
+		for (int c{endCol}; c >= startCol; --c) {
 			ret.push_back(array[endRow][c]);
 		}
 		endRow--;
+		
 
 		// Down to Up Col
-		for (int r{endRow-1}; r > startRow; --r) {
+		for (int r{endRow}; r >= startRow; --r) {
 			ret.push_back(array[r][startCol]);
 		}
 		startCol++;
