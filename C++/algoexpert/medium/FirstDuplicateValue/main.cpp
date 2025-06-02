@@ -2,31 +2,23 @@
 #include <iterator>
 #include <vector>
 #include <algorithm>
+#include <unordered_map>
 
 using namespace std;
 
-int prod(vector<int> array, int pos) 
+int firstDuplicateValue(vector<int> array)
 {
-	int p{1};
+	unordered_map<int, int> map{};
 
-	for (int i{0}; i < array.size(); ++i) {
-		if (i != pos) {
-			p *= array[i];
+	for (const auto& value : array) {
+		map[value]++;
+
+		if (map[value] > 1) {
+			return value;
 		}
 	}
 
-	return p;
-}
-
-vector<int> arrayOfProducts(vector<int> array) 
-{
-	vector<int> ret{};
-
-	for (int i{0}; i < array.size(); ++i) {
-		ret.push_back(prod(array, i));
-	}  
-
-	return ret;
+	return -1;
 }
 
 void print(const vector<int> array)
@@ -36,8 +28,8 @@ void print(const vector<int> array)
 
 int main()
 {
-	vector<int> array{5, 1, 4, 2};
-	print(arrayOfProducts(array));
+	vector<int> array{2, 1, 5, 2, 3, 3, 4};
+	cout << firstDuplicateValue(array) << '\n';
 
 	return EXIT_SUCCESS;
 }
