@@ -5,28 +5,28 @@
 
 using namespace std;
 
-int prod(vector<int> array, int pos) 
+int sum(vector<int> array, size_t from, size_t to)
 {
-	int p{1};
+	int result = 0;
 
-	for (int i{0}; i < array.size(); ++i) {
-		if (i != pos) {
-			p *= array[i];
+	for (size_t i{from}; i <= to; ++i) {
+		result += array[i];
+	}
+	
+	return result;
+}
+
+bool zeroSumSubarray(vector<int> array)
+{
+	for (size_t start{0}; start < array.size(); ++start) {
+		for (size_t end{start}; end < array.size(); ++end) {
+			if (sum(array, start, end) == 0) {
+				return true;
+			}	
 		}
 	}
 
-	return p;
-}
-
-vector<int> arrayOfProducts(vector<int> array) 
-{
-	vector<int> ret{};
-
-	for (int i{0}; i < array.size(); ++i) {
-		ret.push_back(prod(array, i));
-	}  
-
-	return ret;
+	return false;
 }
 
 void print(const vector<int> array)
@@ -36,8 +36,15 @@ void print(const vector<int> array)
 
 int main()
 {
-	vector<int> array{5, 1, 4, 2};
-	print(arrayOfProducts(array));
+	vector<int> array{-5, -5, 2, 3, 2};
+	cout << boolalpha << zeroSumSubarray(array) << '\n';
+
+	vector<int> b{0};
+	cout << boolalpha << zeroSumSubarray(b) << '\n';
+
+	vector<int> c{1};
+	cout << boolalpha << zeroSumSubarray(c) << '\n';
+
 
 	return EXIT_SUCCESS;
 }
